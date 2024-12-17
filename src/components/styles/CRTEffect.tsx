@@ -166,7 +166,6 @@ export const Screen = styled.div`
   width: 100%;
   height: 100%;
   background: transparent;
-  padding: 2rem;
   color: #00ff00;
   text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
   font-family: 'VT323', monospace;
