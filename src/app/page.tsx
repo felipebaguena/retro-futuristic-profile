@@ -2,6 +2,7 @@
 import styled from 'styled-components'
 import { CRTContainer, Scanline, Screen } from '@/components/styles/CRTEffect'
 import { CRTOuter } from '@/components/styles/CRTEffect'
+import { CRTText } from '@/components/styles/CRTText'
 
 const Content = styled.div`
   display: flex;
@@ -12,6 +13,13 @@ const Content = styled.div`
   font-size: 1.5rem;
 `
 
+const Title = styled(CRTText)`
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+`
+
 export default function Home() {
   return (
     <CRTOuter>
@@ -19,7 +27,7 @@ export default function Home() {
         <Scanline />
         <Screen>
           <Content>
-            <h1>Terminal Ready_</h1>
+            <Title data-text="Terminal Ready_">Terminal Ready_</Title>
           </Content>
         </Screen>
       </CRTContainer>

@@ -1,4 +1,7 @@
+'use client'
+import { ThemeProvider } from 'styled-components'
 import StyledComponentsRegistry from './registry'
+import { theme } from '@/styles/theme'
 
 export default function RootLayout({
   children,
@@ -10,7 +13,9 @@ export default function RootLayout({
       <head />
       <body suppressHydrationWarning>
         <StyledComponentsRegistry>
-          {children}
+          <ThemeProvider theme={theme}>
+            {children}
+          </ThemeProvider>
         </StyledComponentsRegistry>
       </body>
     </html>
