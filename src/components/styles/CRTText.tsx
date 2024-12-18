@@ -1,7 +1,7 @@
 'use client'
 import styled, { keyframes } from 'styled-components'
 
-const rgbShift = keyframes`
+export const rgbShift = keyframes`
   0% {
     text-shadow: 
       -1px 0 2px rgba(255,0,0,0.5),

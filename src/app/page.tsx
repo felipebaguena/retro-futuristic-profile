@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react'
 import { CRTContainer, Scanline, Screen, CRTOuter } from '@/components/styles/CRTEffect'
 import { Terminal, Line, Prompt } from '@/components/styles/TerminalStyles'
 import { executeBootSequence } from '@/components/BootSequence'
+import { MenuGrid } from '@/components/MenuGrid'
 
 export default function Home() {
   const [lines, setLines] = useState<string[]>([])
@@ -41,6 +42,7 @@ export default function Home() {
                   Esta es la web de Felipe Báguena Peña. Bienvenido.
                 </Line>
                 <Prompt data-text=">">{`> `}</Prompt>
+                <MenuGrid />
               </>
             )}
           </Terminal>
