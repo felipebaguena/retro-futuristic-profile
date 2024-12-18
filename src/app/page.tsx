@@ -7,6 +7,7 @@ import { executeBootSequence } from '@/components/BootSequence'
 import { MenuGrid } from '@/components/MenuGrid'
 import { Navbar } from '@/components/Navbar'
 import { ContactForm } from '@/components/ContactForm'
+import { executeGithubSequence } from '@/components/GithubSequence'
 
 const ContentContainer = styled.div`
   max-width: 1200px;
@@ -22,6 +23,8 @@ export default function Home() {
   const [showContactForm, setShowContactForm] = useState(false)
   const [menuExiting, setMenuExiting] = useState(false)
   const [contactFormExiting, setContactFormExiting] = useState(false)
+  const [githubLines, setGithubLines] = useState<string[]>([])
+  const [isLoadingGithub, setIsLoadingGithub] = useState(false)
   const abortControllerRef = useRef<AbortController | null>(null)
 
   useEffect(() => {
@@ -63,6 +66,27 @@ export default function Home() {
     }, 500)
   }
 
+  const handleGithubClick = () => {
+    setMenuExiting(true)
+    setIsLoadingGithub(true)
+
+    const addMessage = (message: string) => {
+      setGithubLines(prev => [...prev, message])
+    }
+
+    const updateLastMessage = (message: string) => {
+      setGithubLines(prev => [...prev.slice(0, -1), message])
+    }
+
+    const cleanup = () => {
+      setGithubLines([])
+      setMenuExiting(false)
+      setIsLoadingGithub(false)
+    }
+
+    executeGithubSequence(addMessage, updateLastMessage, cleanup)
+  }
+
   return (
     <>
       {showWelcome && <Navbar onContactClick={handleContactClick} />}
@@ -80,14 +104,23 @@ export default function Home() {
                     <Line data-text="Esta es la web de Felipe Báguena Peña. Bienvenido.">
                       Esta es la web de Felipe Báguena Peña. Bienvenido.
                     </Line>
+                    {isLoadingGithub && githubLines.map((line, i) => (
+                      <Line key={`github-${i}`} data-text={line}>{line}</Line>
+                    ))}
                     <Prompt data-text=">">{`> `}</Prompt>
-                    {!showContactForm && (
+                    {!showContactForm && !isLoadingGithub && (
                       <MenuGrid
                         onContactClick={handleContactClick}
+                        onGithubClick={handleGithubClick}
                         isExiting={menuExiting}
                       />
                     )}
-                    {showContactForm && <ContactForm onClose={handleCloseContact} isExiting={contactFormExiting} />}
+                    {showContactForm && (
+                      <ContactForm
+                        onClose={handleCloseContact}
+                        isExiting={contactFormExiting}
+                      />
+                    )}
                   </>
                 )}
               </Terminal>
@@ -98,3 +131,4 @@ export default function Home() {
     </>
   )
 }
+

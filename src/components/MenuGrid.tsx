@@ -6,6 +6,7 @@ import { rgbShift } from '@/components/styles/CRTText'
 
 interface MenuGridProps {
     onContactClick: () => void;
+    onGithubClick: () => void;
     isExiting?: boolean;
 }
 
@@ -72,7 +73,7 @@ const MenuItem = styled.div<{ delay: number, onClick?: () => void }>`
   }
 `
 
-export const MenuGrid = ({ onContactClick, isExiting }: MenuGridProps) => {
+export const MenuGrid = ({ onContactClick, onGithubClick, isExiting }: MenuGridProps) => {
     return (
         <MenuContainer $isExiting={isExiting}>
             <MenuItem delay={0}>
@@ -87,7 +88,7 @@ export const MenuGrid = ({ onContactClick, isExiting }: MenuGridProps) => {
                 <FaUser />
                 <CRTText data-text="Sobre mí">Sobre mí</CRTText>
             </MenuItem>
-            <MenuItem delay={1.2}>
+            <MenuItem delay={1.2} onClick={onGithubClick}>
                 <FaGithub />
                 <CRTText data-text="Github">Github</CRTText>
             </MenuItem>
