@@ -2,6 +2,7 @@
 import styled from 'styled-components'
 import { CRTText } from '@/components/styles/CRTText'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 const NavContainer = styled.div`
   position: fixed;
@@ -76,8 +77,22 @@ const generateAsterisks = (count: number) => {
 
 const ASTERISK_COUNT = 25
 
-export const Navbar = () => {
+interface NavbarProps {
+    onContactClick?: () => void;
+}
+
+export const Navbar = ({ onContactClick }: NavbarProps) => {
+    const router = useRouter()
     const asterisks = generateAsterisks(ASTERISK_COUNT)
+
+    const handleContactClick = (e: React.MouseEvent) => {
+        e.preventDefault()
+        if (window.location.pathname !== '/') {
+            router.push('/?contact=true')
+        } else if (onContactClick) {
+            onContactClick()
+        }
+    }
 
     return (
         <NavContainer>
@@ -93,7 +108,7 @@ export const Navbar = () => {
                         <NavLink href="/portfolio">
                             <CRTText data-text="Portfolio">Portfolio</CRTText>
                         </NavLink>
-                        <NavLink href="/contacto">
+                        <NavLink href="/contacto" onClick={handleContactClick}>
                             <CRTText data-text="Contacto">Contacto</CRTText>
                         </NavLink>
                         <NavLink href="/sobre-mi">

@@ -28,6 +28,14 @@ export default function Home() {
     abortControllerRef.current = new AbortController()
     executeBootSequence(setLines, setShowWelcome, setShowContent, abortControllerRef.current.signal)
 
+    // Verificar si hay un parámetro de contacto en la URL
+    const searchParams = new URLSearchParams(window.location.search)
+    if (searchParams.get('contact') === 'true') {
+      handleContactClick()
+      // Limpiar el parámetro de la URL
+      window.history.replaceState({}, '', '/')
+    }
+
     return () => {
       if (abortControllerRef.current) {
         abortControllerRef.current.abort()
@@ -59,7 +67,7 @@ export default function Home() {
 
   return (
     <>
-      {showWelcome && <Navbar />}
+      {showWelcome && <Navbar onContactClick={handleContactClick} />}
       <CRTOuter onClick={handleClick}>
         <CRTContainer>
           <Scanline />
