@@ -19,6 +19,9 @@ export default function Home() {
   const [lines, setLines] = useState<string[]>([])
   const [showWelcome, setShowWelcome] = useState(false)
   const [showContent, setShowContent] = useState(false)
+  const [showContactForm, setShowContactForm] = useState(false)
+  const [menuExiting, setMenuExiting] = useState(false)
+  const [contactFormExiting, setContactFormExiting] = useState(false)
   const abortControllerRef = useRef<AbortController | null>(null)
 
   useEffect(() => {
@@ -36,6 +39,22 @@ export default function Home() {
     if (!showWelcome && abortControllerRef.current) {
       abortControllerRef.current.abort()
     }
+  }
+
+  const handleContactClick = () => {
+    setMenuExiting(true)
+    setTimeout(() => {
+      setShowContactForm(true)
+    }, 500)
+  }
+
+  const handleCloseContact = () => {
+    setContactFormExiting(true)
+    setTimeout(() => {
+      setShowContactForm(false)
+      setContactFormExiting(false)
+      setMenuExiting(false)
+    }, 500)
   }
 
   return (
@@ -56,7 +75,13 @@ export default function Home() {
                       Esta es la web de Felipe Báguena Peña. Bienvenido.
                     </Line>
                     <Prompt data-text=">">{`> `}</Prompt>
-                    <MenuGrid />
+                    {!showContactForm && (
+                      <MenuGrid
+                        onContactClick={handleContactClick}
+                        isExiting={menuExiting}
+                      />
+                    )}
+                    {showContactForm && <ContactForm onClose={handleCloseContact} isExiting={contactFormExiting} />}
                   </>
                 )}
               </Terminal>

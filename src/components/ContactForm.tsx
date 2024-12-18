@@ -1,11 +1,44 @@
 'use client'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { CRTText } from './styles/CRTText'
 
-const FormContainer = styled.div`
-  margin-top: 2rem;
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+`;
+
+const CenterContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`
+
+const FormContainer = styled.div<{ $isExiting?: boolean }>`
   width: 100%;
   max-width: 600px;
+  animation: ${props => props.$isExiting ? fadeOut : fadeIn} 0.5s ease-out forwards;
 `
 
 const StyledForm = styled.form`
@@ -65,7 +98,52 @@ const SubmitButton = styled.button`
   }
 `
 
-export const ContactForm = () => {
+const HeaderContainer = styled.div`
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  height: 40px;
+`;
+
+const HeaderTitle = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const CloseButton = styled.button`
+  background: transparent;
+  border: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  color: ${({ theme }) => theme.colors.crtText};
+  cursor: pointer;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-size: 1.8rem;
+  line-height: 1;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+`;
+
+const FormText = styled(CRTText)`
+  font-size: 0.9rem;
+  text-transform: uppercase;
+`;
+
+interface ContactFormProps {
+    onClose: () => void;
+    isExiting?: boolean;
+}
+
+export const ContactForm = ({ onClose, isExiting }: ContactFormProps) => {
     const formspreeUrl = "https://formspree.io/f/xpwzgbrg";
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -94,50 +172,60 @@ export const ContactForm = () => {
     };
 
     return (
-        <FormContainer>
-            <StyledForm onSubmit={handleSubmit}>
-                <InputWrapper>
-                    <CRTText as="label" htmlFor="nombre">Nombre:</CRTText>
-                    <Input
-                        type="text"
-                        id="nombre"
-                        name="nombre"
-                        required
-                    />
-                </InputWrapper>
+        <CenterContainer>
+            <FormContainer $isExiting={isExiting}>
+                <HeaderContainer>
+                    <HeaderTitle>
+                        <FormText>Formulario de contacto</FormText>
+                    </HeaderTitle>
+                    <CloseButton onClick={onClose}>
+                        ×
+                    </CloseButton>
+                </HeaderContainer>
+                <StyledForm onSubmit={handleSubmit}>
+                    <InputWrapper>
+                        <FormText as="label" htmlFor="nombre">Nombre:</FormText>
+                        <Input
+                            type="text"
+                            id="nombre"
+                            name="nombre"
+                            required
+                        />
+                    </InputWrapper>
 
-                <InputWrapper>
-                    <CRTText as="label" htmlFor="email">Email:</CRTText>
-                    <Input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                    />
-                </InputWrapper>
+                    <InputWrapper>
+                        <FormText as="label" htmlFor="email">Email:</FormText>
+                        <Input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                        />
+                    </InputWrapper>
 
-                <InputWrapper>
-                    <CRTText as="label" htmlFor="telefono">Teléfono:</CRTText>
-                    <Input
-                        type="tel"
-                        id="telefono"
-                        name="telefono"
-                    />
-                </InputWrapper>
+                    <InputWrapper>
+                        <FormText as="label" htmlFor="telefono">Teléfono:</FormText>
+                        <Input
+                            type="tel"
+                            id="telefono"
+                            name="telefono"
+                        />
+                    </InputWrapper>
 
-                <InputWrapper>
-                    <CRTText as="label" htmlFor="mensaje">Mensaje:</CRTText>
-                    <TextArea
-                        id="mensaje"
-                        name="mensaje"
-                        required
-                    />
-                </InputWrapper>
+                    <InputWrapper>
+                        <FormText as="label" htmlFor="mensaje">Mensaje:</FormText>
+                        <TextArea
+                            id="mensaje"
+                            name="mensaje"
+                            required
+                        />
+                    </InputWrapper>
 
-                <SubmitButton type="submit">
-                    <CRTText>Enviar Mensaje</CRTText>
-                </SubmitButton>
-            </StyledForm>
-        </FormContainer>
+                    <SubmitButton type="submit">
+                        <CRTText>ENVIAR MENSAJE</CRTText>
+                    </SubmitButton>
+                </StyledForm>
+            </FormContainer>
+        </CenterContainer>
     );
 }; 

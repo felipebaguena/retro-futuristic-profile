@@ -4,7 +4,16 @@ import { FaUser, FaEnvelope, FaGithub, FaFolder } from 'react-icons/fa'
 import { CRTText } from '@/components/styles/CRTText'
 import { rgbShift } from '@/components/styles/CRTText'
 
-const MenuContainer = styled.div`
+interface MenuGridProps {
+    onContactClick: () => void;
+    isExiting?: boolean;
+}
+
+interface MenuContainerProps {
+    $isExiting?: boolean;
+}
+
+const MenuContainer = styled.div<MenuContainerProps>`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
@@ -14,7 +23,9 @@ const MenuContainer = styled.div`
   transform: translate(-50%, -50%);
   padding: 1rem;
   width: max-content;
-`
+  opacity: ${props => props.$isExiting ? 0 : 1};
+  transition: opacity 0.5s ease-out;
+`;
 
 const fadeIn = keyframes`
   from {
@@ -27,7 +38,7 @@ const fadeIn = keyframes`
   }
 `
 
-const MenuItem = styled.div<{ delay: number }>`
+const MenuItem = styled.div<{ delay: number, onClick?: () => void }>`
   border: 2px solid ${({ theme }) => theme.colors.crtText};
   padding: 1rem;
   display: flex;
@@ -61,14 +72,14 @@ const MenuItem = styled.div<{ delay: number }>`
   }
 `
 
-export const MenuGrid = () => {
+export const MenuGrid = ({ onContactClick, isExiting }: MenuGridProps) => {
     return (
-        <MenuContainer>
+        <MenuContainer $isExiting={isExiting}>
             <MenuItem delay={0}>
                 <FaFolder />
                 <CRTText data-text="Portfolio">Portfolio</CRTText>
             </MenuItem>
-            <MenuItem delay={0.4}>
+            <MenuItem delay={0.4} onClick={onContactClick}>
                 <FaEnvelope />
                 <CRTText data-text="Contacto">Contacto</CRTText>
             </MenuItem>
