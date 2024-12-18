@@ -7,7 +7,7 @@ export const Terminal = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 2rem;
+  padding: 6rem 2rem 2rem 2rem;
   height: 100%;
   font-size: 1.2rem;
   position: relative;
