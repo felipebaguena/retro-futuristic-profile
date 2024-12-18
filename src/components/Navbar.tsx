@@ -114,7 +114,7 @@ export const Navbar = ({ onContactClick }: NavbarProps) => {
                         <NavLink href="/sobre-mi">
                             <CRTText data-text="Sobre mí">Sobre mí</CRTText>
                         </NavLink>
-                        <NavLink href="https://github.com/tuuser" target="_blank">
+                        <NavLink href="https://github.com/felipebaguena" target="_blank">
                             <CRTText data-text="Github">Github</CRTText>
                         </NavLink>
                     </NavLinks>
