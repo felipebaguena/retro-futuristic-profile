@@ -100,7 +100,12 @@ export const CRTContainer = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #001800;
+  background: ${({ theme }) => theme.colors.crtBackground};
+  background-image: radial-gradient(
+    ellipse,
+    ${({ theme }) => theme.colors.crtBackground} 0%,
+    #050505 90%
+  );
   overflow: hidden;
   animation: ${textShadow} 1.6s infinite;
   border-radius: 20px;
@@ -116,28 +121,11 @@ export const CRTContainer = styled.div`
     right: 0;
     background: linear-gradient(
       to bottom,
-      rgba(18, 16, 16, 0) 50%,
+      rgba(18, 16, 16, 0.1) 50%,
       rgba(0, 0, 0, 0.25) 50%
     );
     background-size: 100% 8px;
     z-index: 2;
-    pointer-events: none;
-  }
-
-  &::after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: radial-gradient(
-      circle at center,
-      transparent 0%,
-      rgba(0, 0, 0, 0.2) 80%,
-      rgba(0, 0, 0, 0.4) 100%
-    );
     pointer-events: none;
   }
 `
