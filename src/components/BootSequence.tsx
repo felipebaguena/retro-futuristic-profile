@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from 'react'
 export const executeBootSequence = async (
     setLines: Dispatch<SetStateAction<string[]>>,
     setShowWelcome: Dispatch<SetStateAction<boolean>>,
+    setShowContent: Dispatch<SetStateAction<boolean>>,
     signal: AbortSignal
 ) => {
     const delay = (ms: number): Promise<void> => {
@@ -130,13 +131,15 @@ export const executeBootSequence = async (
             await delay(command.delay)
         }
 
+        setShowWelcome(true)
         await delay(1000)
         setLines([])
-        setShowWelcome(true)
+        setShowContent(true)
     } catch (error: unknown) {
         if (error instanceof Error && error.message === 'cancelled') {
             setLines([])
             setShowWelcome(true)
+            setShowContent(true)
         }
     }
 }

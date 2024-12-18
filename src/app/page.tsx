@@ -17,11 +17,12 @@ const ContentContainer = styled.div`
 export default function Home() {
   const [lines, setLines] = useState<string[]>([])
   const [showWelcome, setShowWelcome] = useState(false)
+  const [showContent, setShowContent] = useState(false)
   const abortControllerRef = useRef<AbortController | null>(null)
 
   useEffect(() => {
     abortControllerRef.current = new AbortController()
-    executeBootSequence(setLines, setShowWelcome, abortControllerRef.current.signal)
+    executeBootSequence(setLines, setShowWelcome, setShowContent, abortControllerRef.current.signal)
 
     return () => {
       if (abortControllerRef.current) {
@@ -48,7 +49,7 @@ export default function Home() {
                 {lines.map((line, i) => (
                   <Line key={i} data-text={line}>{line}</Line>
                 ))}
-                {showWelcome && (
+                {showContent && (
                   <>
                     <Line data-text="Esta es la web de Felipe Báguena Peña. Bienvenido.">
                       Esta es la web de Felipe Báguena Peña. Bienvenido.

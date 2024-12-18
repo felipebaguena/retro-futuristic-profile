@@ -10,6 +10,18 @@ const NavContainer = styled.div`
   width: 100%;
   z-index: 10;
   margin-top: 1rem;
+  animation: slideDown 0.5s ease-out;
+  
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 `
 
 const ContentContainer = styled.div`
