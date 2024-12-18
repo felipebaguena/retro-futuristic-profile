@@ -6,6 +6,7 @@ import { Terminal, Line, Prompt } from '@/components/styles/TerminalStyles'
 import { executeBootSequence } from '@/components/BootSequence'
 import { MenuGrid } from '@/components/MenuGrid'
 import { Navbar } from '@/components/Navbar'
+import { ContactForm } from '@/components/ContactForm'
 
 const ContentContainer = styled.div`
   max-width: 1200px;
