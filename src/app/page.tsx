@@ -68,23 +68,26 @@ export default function Home() {
 
   const handleGithubClick = () => {
     setMenuExiting(true)
-    setIsLoadingGithub(true)
 
-    const addMessage = (message: string) => {
-      setGithubLines(prev => [...prev, message])
-    }
+    setTimeout(() => {
+      setIsLoadingGithub(true)
 
-    const updateLastMessage = (message: string) => {
-      setGithubLines(prev => [...prev.slice(0, -1), message])
-    }
+      const addMessage = (message: string) => {
+        setGithubLines(prev => [...prev, message])
+      }
 
-    const cleanup = () => {
-      setGithubLines([])
-      setMenuExiting(false)
-      setIsLoadingGithub(false)
-    }
+      const updateLastMessage = (message: string) => {
+        setGithubLines(prev => [...prev.slice(0, -1), message])
+      }
 
-    executeGithubSequence(addMessage, updateLastMessage, cleanup)
+      const cleanup = () => {
+        setGithubLines([])
+        setMenuExiting(false)
+        setIsLoadingGithub(false)
+      }
+
+      executeGithubSequence(addMessage, updateLastMessage, cleanup)
+    }, 500)
   }
 
   return (
