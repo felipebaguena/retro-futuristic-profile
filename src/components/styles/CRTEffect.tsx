@@ -103,6 +103,8 @@ export const CRTContainer = styled.div`
   background: #001800;
   overflow: hidden;
   animation: ${textShadow} 1.6s infinite;
+  border-radius: 20px;
+  perspective: 1000px;
 
   &::before {
     content: " ";
@@ -131,15 +133,9 @@ export const CRTContainer = styled.div`
     bottom: 0;
     right: 0;
     background: radial-gradient(
-      ellipse at center,
-      rgba(0, 255, 0, 0.07) 0%,
-      rgba(0, 255, 0, 0.06) 10%,
-      rgba(0, 255, 0, 0.05) 20%,
-      rgba(0, 255, 0, 0.03) 30%,
-      rgba(0, 255, 0, 0.01) 40%,
-      rgba(0, 0, 0, 0.08) 50%,
-      rgba(0, 0, 0, 0.2) 70%,
-      rgba(0, 0, 0, 0.35) 85%,
+      circle at center,
+      transparent 0%,
+      rgba(0, 0, 0, 0.2) 80%,
       rgba(0, 0, 0, 0.4) 100%
     );
     pointer-events: none;
