@@ -69,34 +69,34 @@ export default function Home() {
               setLine(`Loading ${file}...`)
               await new Promise(resolve => setTimeout(resolve, 300))
             }
-            await new Promise(resolve => setTimeout(resolve, 700))
+            await new Promise(resolve => setTimeout(resolve, 600))
 
             const matrixLines = [
               async () => {
                 const text = "Wake up, Neo..."
                 for (let i = 1; i <= text.length; i++) {
                   setLine(text.slice(0, i))
-                  await new Promise(resolve => setTimeout(resolve, 50))
+                  await new Promise(resolve => setTimeout(resolve, 20))
                 }
-                await new Promise(resolve => setTimeout(resolve, 800))
+                await new Promise(resolve => setTimeout(resolve, 700))
                 return text
               },
               async () => {
                 const text = "The Matrix has you..."
                 for (let i = 1; i <= text.length; i++) {
                   setLine(text.slice(0, i))
-                  await new Promise(resolve => setTimeout(resolve, 50))
+                  await new Promise(resolve => setTimeout(resolve, 20))
                 }
-                await new Promise(resolve => setTimeout(resolve, 800))
+                await new Promise(resolve => setTimeout(resolve, 700))
                 return text
               },
               async () => {
                 const text = "Follow the white rabbit."
                 for (let i = 1; i <= text.length; i++) {
                   setLine(text.slice(0, i))
-                  await new Promise(resolve => setTimeout(resolve, 50))
+                  await new Promise(resolve => setTimeout(resolve, 20))
                 }
-                await new Promise(resolve => setTimeout(resolve, 800))
+                await new Promise(resolve => setTimeout(resolve, 700))
                 return text
               },
               "Knock, knock, Neo.",
