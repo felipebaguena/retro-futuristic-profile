@@ -4,22 +4,22 @@ import { createContext, useContext, useState, ReactNode } from 'react'
 interface BootSequenceContextType {
     hasSeenBootSequence: boolean
     setHasSeenBootSequence: (value: boolean) => void
-    showNavbar: boolean
-    setShowNavbar: (value: boolean) => void
+    hasSeenNavbarAnimation: boolean
+    setHasSeenNavbarAnimation: (value: boolean) => void
 }
 
 const BootSequenceContext = createContext<BootSequenceContextType | undefined>(undefined)
 
 export function BootSequenceProvider({ children }: { children: ReactNode }) {
     const [hasSeenBootSequence, setHasSeenBootSequence] = useState(false)
-    const [showNavbar, setShowNavbar] = useState(false)
+    const [hasSeenNavbarAnimation, setHasSeenNavbarAnimation] = useState(false)
 
     return (
         <BootSequenceContext.Provider value={{
             hasSeenBootSequence,
             setHasSeenBootSequence,
-            showNavbar,
-            setShowNavbar
+            hasSeenNavbarAnimation,
+            setHasSeenNavbarAnimation
         }}>
             {children}
         </BootSequenceContext.Provider>

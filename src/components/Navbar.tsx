@@ -3,15 +3,17 @@ import styled from 'styled-components'
 import { CRTText } from '@/components/styles/CRTText'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useBootSequence } from '@/context/BootSequenceContext'
+import { useEffect } from 'react'
 
-const NavContainer = styled.div`
+const NavContainer = styled.div<{ $firstLoad: boolean }>`
   position: fixed;
   top: 1rem;
   left: 0;
   width: 100%;
   z-index: 10;
   margin-top: 1rem;
-  animation: slideDown 0.5s ease-out;
+  animation: ${props => props.$firstLoad ? 'slideDown 0.5s ease-out' : 'none'};
   
   @keyframes slideDown {
     from {
@@ -84,6 +86,16 @@ interface NavbarProps {
 export const Navbar = ({ onContactClick }: NavbarProps) => {
     const router = useRouter()
     const asterisks = generateAsterisks(ASTERISK_COUNT)
+    const { hasSeenNavbarAnimation, setHasSeenNavbarAnimation } = useBootSequence()
+
+    useEffect(() => {
+        // Después de que termine la animación, actualizamos el estado
+        const timer = setTimeout(() => {
+            setHasSeenNavbarAnimation(true)
+        }, 500) // 500ms es la duración de la animación
+
+        return () => clearTimeout(timer)
+    }, [])
 
     const handleContactClick = (e: React.MouseEvent) => {
         e.preventDefault()
@@ -95,7 +107,7 @@ export const Navbar = ({ onContactClick }: NavbarProps) => {
     }
 
     return (
-        <NavContainer>
+        <NavContainer $firstLoad={!hasSeenNavbarAnimation}>
             <ContentContainer>
                 <Nav>
                     <Decoration data-text={asterisks}>
