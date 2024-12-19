@@ -111,6 +111,14 @@ export const MenuGrid = ({
         }, 500)
     }
 
+    const handleGithubClick = () => {
+        if (!hasAppliedNewDesign) {
+            onGithubClick()
+        } else {
+            window.open('https://github.com/felipebaguena', '_blank')
+        }
+    }
+
     return (
         <MenuContainer $isExiting={isExiting}>
             <MenuItem $delay={0} onClick={handlePortfolioClick}>
@@ -125,7 +133,7 @@ export const MenuGrid = ({
                 <FaUser />
                 <CRTText data-text="Sobre mí">Sobre mí</CRTText>
             </MenuItem>
-            <MenuItem $delay={1.2} onClick={onGithubClick}>
+            <MenuItem $delay={1.2} onClick={handleGithubClick}>
                 <FaGithub />
                 <CRTText data-text="Github">Github</CRTText>
             </MenuItem>
