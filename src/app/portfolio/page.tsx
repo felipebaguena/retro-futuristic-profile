@@ -14,7 +14,7 @@ const ContentContainer = styled.div`
 `
 
 export default function Portfolio() {
-    const { setHasSeenBootSequence, setHasSeenNavbarAnimation } = useBootSequence()
+    const { setHasSeenBootSequence } = useBootSequence()
 
     useEffect(() => {
         setHasSeenBootSequence(true)
