@@ -86,9 +86,16 @@ export const MenuGrid = ({ onContactClick, onGithubClick, onSobreMiClick, isExit
         }, 500)
     }
 
+    const handlePortfolioClick = () => {
+        onSobreMiClick()
+        setTimeout(() => {
+            router.push('/portfolio')
+        }, 500)
+    }
+
     return (
         <MenuContainer $isExiting={isExiting}>
-            <MenuItem delay={0}>
+            <MenuItem delay={0} onClick={handlePortfolioClick}>
                 <FaFolder />
                 <CRTText data-text="Portfolio">Portfolio</CRTText>
             </MenuItem>

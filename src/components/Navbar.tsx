@@ -81,9 +81,10 @@ const ASTERISK_COUNT = 25
 
 interface NavbarProps {
     onContactClick?: () => void;
+    onHomeClick?: () => void;
 }
 
-export const Navbar = ({ onContactClick }: NavbarProps) => {
+export const Navbar = ({ onContactClick, onHomeClick }: NavbarProps) => {
     const router = useRouter()
     const asterisks = generateAsterisks(ASTERISK_COUNT)
     const { hasSeenNavbarAnimation, setHasSeenNavbarAnimation } = useBootSequence()
@@ -106,6 +107,15 @@ export const Navbar = ({ onContactClick }: NavbarProps) => {
         }
     }
 
+    const handleHomeClick = (e: React.MouseEvent) => {
+        e.preventDefault()
+        if (window.location.pathname === '/') {
+            if (onHomeClick) onHomeClick()
+        } else {
+            router.push('/')
+        }
+    }
+
     return (
         <NavContainer $firstLoad={!hasSeenNavbarAnimation}>
             <ContentContainer>
@@ -114,7 +124,7 @@ export const Navbar = ({ onContactClick }: NavbarProps) => {
                         {asterisks}
                     </Decoration>
                     <NavLinks>
-                        <NavLink href="/">
+                        <NavLink href="/" onClick={handleHomeClick}>
                             <CRTText data-text="Inicio">Inicio</CRTText>
                         </NavLink>
                         <NavLink href="/portfolio">

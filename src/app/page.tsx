@@ -104,9 +104,20 @@ export default function Home() {
     setMenuExiting(true)
   }
 
+  const handleHomeClick = () => {
+    if (showContactForm) {
+      handleCloseContact()
+    }
+  }
+
   return (
     <>
-      {showWelcome && <Navbar onContactClick={handleContactClick} />}
+      {showWelcome && (
+        <Navbar
+          onContactClick={handleContactClick}
+          onHomeClick={handleHomeClick}
+        />
+      )}
       <CRTOuter onClick={handleClick}>
         <CRTContainer>
           <Scanline />
