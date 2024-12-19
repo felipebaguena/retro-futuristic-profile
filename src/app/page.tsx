@@ -8,6 +8,7 @@ import { MenuGrid } from '@/components/MenuGrid'
 import { Navbar } from '@/components/Navbar'
 import { ContactForm } from '@/components/ContactForm'
 import { executeGithubSequence } from '@/components/GithubSequence'
+import { useBootSequence } from '@/context/BootSequenceContext'
 
 const ContentContainer = styled.div`
   max-width: 1200px;
@@ -26,15 +27,24 @@ export default function Home() {
   const [githubLines, setGithubLines] = useState<string[]>([])
   const [isLoadingGithub, setIsLoadingGithub] = useState(false)
   const abortControllerRef = useRef<AbortController | null>(null)
+  const { hasSeenBootSequence, setHasSeenBootSequence } = useBootSequence()
 
   useEffect(() => {
-    abortControllerRef.current = new AbortController()
-    executeBootSequence(setLines, setShowWelcome, setShowContent, abortControllerRef.current.signal)
+    if (typeof window !== 'undefined') {
+      if (!hasSeenBootSequence) {
+        abortControllerRef.current = new AbortController()
+        executeBootSequence(setLines, setShowWelcome, setShowContent, abortControllerRef.current.signal)
+        setHasSeenBootSequence(true)
+      } else {
+        setShowWelcome(true)
+        setShowContent(true)
+      }
 
-    const searchParams = new URLSearchParams(window.location.search)
-    if (searchParams.get('contact') === 'true') {
-      handleContactClick()
-      window.history.replaceState({}, '', '/')
+      const searchParams = new URLSearchParams(window.location.search)
+      if (searchParams.get('contact') === 'true') {
+        handleContactClick()
+        window.history.replaceState({}, '', '/')
+      }
     }
 
     return () => {

@@ -2,6 +2,7 @@
 import { ThemeProvider } from 'styled-components'
 import StyledComponentsRegistry from './registry'
 import { theme } from '@/styles/theme'
+import { BootSequenceProvider } from '@/context/BootSequenceContext'
 
 export default function RootLayout({
   children,
@@ -13,9 +14,11 @@ export default function RootLayout({
       <head />
       <body suppressHydrationWarning>
         <StyledComponentsRegistry>
-          <ThemeProvider theme={theme}>
-            {children}
-          </ThemeProvider>
+          <BootSequenceProvider>
+            <ThemeProvider theme={theme}>
+              {children}
+            </ThemeProvider>
+          </BootSequenceProvider>
         </StyledComponentsRegistry>
       </body>
     </html>
