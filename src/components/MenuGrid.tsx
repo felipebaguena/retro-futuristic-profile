@@ -10,6 +10,7 @@ interface MenuGridProps {
     onContactClick: () => void;
     onGithubClick: () => void;
     onSobreMiClick: () => void;
+    onPortfolioClick: () => void;
     isExiting?: boolean;
 }
 
@@ -76,7 +77,13 @@ const MenuItem = styled.div<{ delay: number, onClick?: () => void }>`
   }
 `
 
-export const MenuGrid = ({ onContactClick, onGithubClick, onSobreMiClick, isExiting }: MenuGridProps) => {
+export const MenuGrid = ({
+    onContactClick,
+    onGithubClick,
+    onSobreMiClick,
+    onPortfolioClick,
+    isExiting
+}: MenuGridProps) => {
     const router = useRouter()
 
     const handleSobreMiClick = () => {
@@ -86,16 +93,9 @@ export const MenuGrid = ({ onContactClick, onGithubClick, onSobreMiClick, isExit
         }, 500)
     }
 
-    const handlePortfolioClick = () => {
-        onSobreMiClick()
-        setTimeout(() => {
-            router.push('/portfolio')
-        }, 500)
-    }
-
     return (
         <MenuContainer $isExiting={isExiting}>
-            <MenuItem delay={0} onClick={handlePortfolioClick}>
+            <MenuItem delay={0} onClick={onPortfolioClick}>
                 <FaFolder />
                 <CRTText data-text="Portfolio">Portfolio</CRTText>
             </MenuItem>

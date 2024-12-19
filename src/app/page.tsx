@@ -9,6 +9,8 @@ import { Navbar } from '@/components/Navbar'
 import { ContactForm } from '@/components/ContactForm'
 import { executeGithubSequence } from '@/components/GithubSequence'
 import { useBootSequence } from '@/context/BootSequenceContext'
+import { executePortfolioSequence } from '@/components/PortfolioSequence'
+import { useRouter } from 'next/navigation'
 
 const ContentContainer = styled.div`
   max-width: 1200px;
@@ -28,16 +30,23 @@ export default function Home() {
   const [isLoadingGithub, setIsLoadingGithub] = useState(false)
   const abortControllerRef = useRef<AbortController | null>(null)
   const { hasSeenBootSequence, setHasSeenBootSequence } = useBootSequence()
+  const [showNavbar, setShowNavbar] = useState(true)
+  const [showMenu, setShowMenu] = useState(false)
+  const [isLoadingPortfolio, setIsLoadingPortfolio] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (!hasSeenBootSequence) {
         abortControllerRef.current = new AbortController()
-        executeBootSequence(setLines, setShowWelcome, setShowContent, abortControllerRef.current.signal)
+        executeBootSequence(setLines, setShowWelcome, setShowContent, abortControllerRef.current.signal).then(() => {
+          setShowMenu(true)
+        })
         setHasSeenBootSequence(true)
       } else {
         setShowWelcome(true)
         setShowContent(true)
+        setShowMenu(true)
       }
 
       const searchParams = new URLSearchParams(window.location.search)
@@ -110,9 +119,25 @@ export default function Home() {
     }
   }
 
+  const handlePortfolioClick = async () => {
+    setMenuExiting(true)
+    await new Promise(resolve => setTimeout(resolve, 500))
+
+    setIsLoadingPortfolio(true)
+    const success = await executePortfolioSequence(
+      setLines,
+      setShowNavbar,
+      setShowMenu,
+      setShowWelcome
+    )
+    if (success) {
+      router.push('/portfolio')
+    }
+  }
+
   return (
     <>
-      {showWelcome && (
+      {showWelcome && showNavbar && (
         <Navbar
           onContactClick={handleContactClick}
           onHomeClick={handleHomeClick}
@@ -127,30 +152,29 @@ export default function Home() {
                 {lines.map((line, i) => (
                   <Line key={i} data-text={line}>{line}</Line>
                 ))}
-                {showContent && (
-                  <>
-                    <Line data-text="Esta es la web de Felipe Báguena Peña. Bienvenido.">
-                      Esta es la web de Felipe Báguena Peña. Bienvenido.
-                    </Line>
-                    {isLoadingGithub && githubLines.map((line, i) => (
-                      <Line key={`github-${i}`} data-text={line}>{line}</Line>
-                    ))}
-                    <Prompt data-text=">">{`> `}</Prompt>
-                    {!showContactForm && !isLoadingGithub && (
-                      <MenuGrid
-                        onContactClick={handleContactClick}
-                        onGithubClick={handleGithubClick}
-                        onSobreMiClick={handleSobreMiClick}
-                        isExiting={menuExiting}
-                      />
-                    )}
-                    {showContactForm && (
-                      <ContactForm
-                        onClose={handleCloseContact}
-                        isExiting={contactFormExiting}
-                      />
-                    )}
-                  </>
+                {showContent && !isLoadingPortfolio && (
+                  <Line data-text="Esta es la web de Felipe Báguena Peña. Bienvenido.">
+                    Esta es la web de Felipe Báguena Peña. Bienvenido.
+                  </Line>
+                )}
+                {isLoadingGithub && githubLines.map((line, i) => (
+                  <Line key={`github-${i}`} data-text={line}>{line}</Line>
+                ))}
+                <Prompt data-text=">">{`> `}</Prompt>
+                {!showContactForm && !isLoadingGithub && showMenu && (
+                  <MenuGrid
+                    onContactClick={handleContactClick}
+                    onGithubClick={handleGithubClick}
+                    onSobreMiClick={handleSobreMiClick}
+                    onPortfolioClick={handlePortfolioClick}
+                    isExiting={menuExiting}
+                  />
+                )}
+                {showContactForm && (
+                  <ContactForm
+                    onClose={handleCloseContact}
+                    isExiting={contactFormExiting}
+                  />
                 )}
               </Terminal>
             </ContentContainer>
