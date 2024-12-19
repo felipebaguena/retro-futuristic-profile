@@ -63,6 +63,7 @@ const FormContainer = styled.div<{ $isExiting?: boolean }>`
   max-width: 500px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   animation: ${props => props.$isExiting ? slideOutForm : slideInForm} 0.3s ease-out forwards;
+  font-family: 'Arial', sans-serif;
 `
 
 const Header = styled.div`
@@ -78,6 +79,7 @@ const Title = styled.h2`
   margin: 0;
   font-size: 1.5rem;
   color: #333;
+  font-family: 'Arial', sans-serif;
 `
 
 const CloseButton = styled.button`
@@ -108,6 +110,7 @@ const InputGroup = styled.div`
 const Label = styled.label`
   color: #333;
   font-size: 0.9rem;
+  font-family: 'Arial', sans-serif;
 `
 
 const Input = styled.input`
@@ -115,6 +118,7 @@ const Input = styled.input`
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 1rem;
+  font-family: 'Arial', sans-serif;
   
   &:focus {
     outline: none;
@@ -129,6 +133,7 @@ const TextArea = styled.textarea`
   font-size: 1rem;
   min-height: 120px;
   resize: vertical;
+  font-family: 'Arial', sans-serif;
   
   &:focus {
     outline: none;
