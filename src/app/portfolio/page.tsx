@@ -49,6 +49,7 @@ const TransitionContainer = styled.div<{ $isWhite: boolean }>`
   height: 100vh;
   background: ${props => props.$isWhite ? 'white' : 'transparent'};
   transition: background-color 0.5s ease;
+  suppressHydrationWarning: true;
 `
 
 const CRTContentContainer = styled.div`
@@ -59,14 +60,24 @@ const CRTContentContainer = styled.div`
 `
 
 export default function Portfolio() {
-    const { setHasSeenBootSequence } = useBootSequence()
-    const [showCRT, setShowCRT] = useState(true)
+    const { setHasSeenBootSequence, hasAppliedNewDesign, setHasAppliedNewDesign } = useBootSequence()
+    const [showCRT, setShowCRT] = useState(!hasAppliedNewDesign)
     const [showModern, setShowModern] = useState(false)
-    const [showContent, setShowContent] = useState(false)
+    const [showContent, setShowContent] = useState(hasAppliedNewDesign)
     const [progress, setProgress] = useState(0)
-    const [isWhiteBackground, setIsWhiteBackground] = useState(false)
+    const [isWhiteBackground, setIsWhiteBackground] = useState(hasAppliedNewDesign)
 
     useEffect(() => {
+        if (showContent && !hasAppliedNewDesign) {
+            setHasAppliedNewDesign(true)
+        }
+    }, [showContent])
+
+    useEffect(() => {
+        if (hasAppliedNewDesign) {
+            return
+        }
+
         const runSequence = async () => {
             for (let i = 0; i <= 90; i += 5) {
                 setProgress(i)
@@ -94,7 +105,7 @@ export default function Portfolio() {
     }, [])
 
     return (
-        <TransitionContainer $isWhite={isWhiteBackground}>
+        <TransitionContainer $isWhite={isWhiteBackground} suppressHydrationWarning>
             {showCRT && (
                 <CRTOuter>
                     <CRTContainer>

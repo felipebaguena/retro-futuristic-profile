@@ -29,7 +29,7 @@ export default function Home() {
   const [githubLines, setGithubLines] = useState<string[]>([])
   const [isLoadingGithub, setIsLoadingGithub] = useState(false)
   const abortControllerRef = useRef<AbortController | null>(null)
-  const { hasSeenBootSequence, setHasSeenBootSequence } = useBootSequence()
+  const { hasSeenBootSequence, setHasSeenBootSequence, hasAppliedNewDesign, setHasAppliedNewDesign } = useBootSequence()
   const [showNavbar, setShowNavbar] = useState(true)
   const [showMenu, setShowMenu] = useState(false)
   const [isLoadingPortfolio, setIsLoadingPortfolio] = useState(false)
@@ -120,15 +120,13 @@ export default function Home() {
   }
 
   const handlePortfolioClick = async () => {
-    setMenuExiting(true)
-    await new Promise(resolve => setTimeout(resolve, 500))
-
     setIsLoadingPortfolio(true)
     const success = await executePortfolioSequence(
       setLines,
       setShowNavbar,
       setShowMenu,
-      setShowWelcome
+      setShowWelcome,
+      abortControllerRef.current?.signal
     )
     if (success) {
       router.push('/portfolio')
@@ -143,7 +141,7 @@ export default function Home() {
           onHomeClick={handleHomeClick}
         />
       )}
-      <CRTOuter onClick={handleClick}>
+      <CRTOuter onClick={handleClick} suppressHydrationWarning>
         <CRTContainer>
           <Scanline />
           <Screen>
@@ -168,6 +166,7 @@ export default function Home() {
                     onSobreMiClick={handleSobreMiClick}
                     onPortfolioClick={handlePortfolioClick}
                     isExiting={menuExiting}
+                    hasAppliedNewDesign={hasAppliedNewDesign}
                   />
                 )}
                 {showContactForm && (

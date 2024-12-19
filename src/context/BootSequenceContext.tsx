@@ -6,6 +6,8 @@ interface BootSequenceContextType {
     setHasSeenBootSequence: (value: boolean) => void
     hasSeenNavbarAnimation: boolean
     setHasSeenNavbarAnimation: (value: boolean) => void
+    hasAppliedNewDesign: boolean
+    setHasAppliedNewDesign: (value: boolean) => void
 }
 
 const BootSequenceContext = createContext<BootSequenceContextType | undefined>(undefined)
@@ -13,13 +15,16 @@ const BootSequenceContext = createContext<BootSequenceContextType | undefined>(u
 export function BootSequenceProvider({ children }: { children: ReactNode }) {
     const [hasSeenBootSequence, setHasSeenBootSequence] = useState(false)
     const [hasSeenNavbarAnimation, setHasSeenNavbarAnimation] = useState(false)
+    const [hasAppliedNewDesign, setHasAppliedNewDesign] = useState(false)
 
     return (
         <BootSequenceContext.Provider value={{
             hasSeenBootSequence,
             setHasSeenBootSequence,
             hasSeenNavbarAnimation,
-            setHasSeenNavbarAnimation
+            setHasSeenNavbarAnimation,
+            hasAppliedNewDesign,
+            setHasAppliedNewDesign
         }}>
             {children}
         </BootSequenceContext.Provider>

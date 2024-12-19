@@ -92,6 +92,7 @@ export const CRTOuter = styled.div`
     0 0 30px rgba(0, 0, 0, 0.8),
     -5px -5px 20px rgba(255, 255, 255, 0.05),
     5px 5px 20px rgba(0, 0, 0, 0.8);
+  suppressHydrationWarning: true;
 `
 
 export const CRTContainer = styled.div`
