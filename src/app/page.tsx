@@ -6,17 +6,53 @@ import { Terminal, Line, Prompt } from '@/components/styles/TerminalStyles'
 import { executeBootSequence } from '@/components/BootSequence'
 import { MenuGrid } from '@/components/MenuGrid'
 import { Navbar } from '@/components/Navbar'
+import { PortfolioNavbar } from '@/components/PortfolioNavbar'
 import { ContactForm } from '@/components/ContactForm'
 import { executeGithubSequence } from '@/components/GithubSequence'
 import { useBootSequence } from '@/context/BootSequenceContext'
 import { executePortfolioSequence } from '@/components/PortfolioSequence'
 import { useRouter } from 'next/navigation'
+import { ModernContactForm } from '@/components/ModernContactForm'
 
 const ContentContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
   height: 100%;
+`
+
+const ModernContainer = styled.div`
+  background: white;
+  min-height: 100vh;
+  padding-top: 80px;
+  display: flex;
+  justify-content: center;
+`
+
+const ModernContentContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 2rem;
+  color: black;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+const Title = styled.h1`
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+`
+
+const Text = styled.p`
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: center;
+  max-width: 800px;
 `
 
 export default function Home() {
@@ -131,6 +167,28 @@ export default function Home() {
     if (success) {
       router.push('/portfolio')
     }
+  }
+
+  if (hasAppliedNewDesign) {
+    return (
+      <>
+        <PortfolioNavbar onContactClick={handleContactClick} />
+        <ModernContainer>
+          <ModernContentContainer>
+            <Title>Home</Title>
+            <Text>
+              Texto placeholder para la sección Home...
+            </Text>
+          </ModernContentContainer>
+        </ModernContainer>
+        {showContactForm && (
+          <ModernContactForm
+            onClose={handleCloseContact}
+            isExiting={contactFormExiting}
+          />
+        )}
+      </>
+    )
   }
 
   return (
