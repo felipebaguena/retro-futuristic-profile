@@ -21,18 +21,6 @@ export const executePortfolioSequence = async (
 
   const commands = [
     { text: "Solicitando acceso al Portfolio...", delay: 1000 },
-    {
-      text: "Análisis completado",
-      delay: 1200,
-      loading: async (
-        setLine: (text: string) => void,
-        delay: (ms: number) => Promise<void>
-      ) => {
-        setLine("Analizando sistema...");
-        await delay(1200);
-        return "Análisis completado";
-      },
-    },
     { text: "Se requiere actualización a la última versión", delay: 1000 },
     { text: "Iniciando proceso de actualización...", delay: 800 },
     {
