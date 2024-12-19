@@ -2,6 +2,8 @@
 import styled from 'styled-components'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { ModernContactForm } from './ModernContactForm'
 
 const NavContainer = styled.div`
   position: fixed;
@@ -48,39 +50,49 @@ const NavLink = styled(Link)`
   }
 `
 
-interface PortfolioNavbarProps {
-    onContactClick?: () => void;
-}
-
-export const PortfolioNavbar = ({ onContactClick }: PortfolioNavbarProps) => {
+export const PortfolioNavbar = () => {
     const router = useRouter()
+    const [showContactForm, setShowContactForm] = useState(false)
+    const [contactFormExiting, setContactFormExiting] = useState(false)
 
     const handleContactClick = (e: React.MouseEvent) => {
         e.preventDefault()
-        if (window.location.pathname !== '/') {
-            router.push('/?contact=true')
-        } else if (onContactClick) {
-            onContactClick()
-        }
+        setShowContactForm(true)
+    }
+
+    const handleCloseContact = () => {
+        setContactFormExiting(true)
+        setTimeout(() => {
+            setShowContactForm(false)
+            setContactFormExiting(false)
+        }, 500)
     }
 
     return (
-        <NavContainer>
-            <ContentContainer>
-                <Nav>
-                    <NavLinks>
-                        <NavLink href="/">Inicio</NavLink>
-                        <NavLink href="/portfolio">Portfolio</NavLink>
-                        <NavLink href="/contacto" onClick={handleContactClick}>
-                            Contacto
-                        </NavLink>
-                        <NavLink href="/sobre-mi">Sobre mí</NavLink>
-                        <NavLink href="https://github.com/felipebaguena" target="_blank">
-                            Github
-                        </NavLink>
-                    </NavLinks>
-                </Nav>
-            </ContentContainer>
-        </NavContainer>
+        <>
+            <NavContainer>
+                <ContentContainer>
+                    <Nav>
+                        <NavLinks>
+                            <NavLink href="/">Inicio</NavLink>
+                            <NavLink href="/portfolio">Portfolio</NavLink>
+                            <NavLink href="#" onClick={handleContactClick}>
+                                Contacto
+                            </NavLink>
+                            <NavLink href="/sobre-mi">Sobre mí</NavLink>
+                            <NavLink href="https://github.com/felipebaguena" target="_blank">
+                                Github
+                            </NavLink>
+                        </NavLinks>
+                    </Nav>
+                </ContentContainer>
+            </NavContainer>
+            {showContactForm && (
+                <ModernContactForm
+                    onClose={handleCloseContact}
+                    isExiting={contactFormExiting}
+                />
+            )}
+        </>
     )
 } 

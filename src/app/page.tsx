@@ -172,7 +172,7 @@ export default function Home() {
   if (hasAppliedNewDesign) {
     return (
       <>
-        <PortfolioNavbar onContactClick={handleContactClick} />
+        <PortfolioNavbar />
         <ModernContainer>
           <ModernContentContainer>
             <Title>Home</Title>
@@ -181,12 +181,6 @@ export default function Home() {
             </Text>
           </ModernContentContainer>
         </ModernContainer>
-        {showContactForm && (
-          <ModernContactForm
-            onClose={handleCloseContact}
-            isExiting={contactFormExiting}
-          />
-        )}
       </>
     )
   }
