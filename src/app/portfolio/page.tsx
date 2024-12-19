@@ -1,12 +1,57 @@
 'use client'
 import styled from 'styled-components'
+import { PortfolioNavbar } from '@/components/PortfolioNavbar'
+import { useBootSequence } from '@/context/BootSequenceContext'
+import { useEffect, useState } from 'react'
 import { CRTContainer, Scanline, Screen, CRTOuter } from '@/components/styles/CRTEffect'
 import { Terminal, Line } from '@/components/styles/TerminalStyles'
-import { Navbar } from '@/components/Navbar'
-import { useBootSequence } from '@/context/BootSequenceContext'
-import { useEffect } from 'react'
+import { ModernProgressBar } from '@/components/ModernProgressBar'
+
+const PortfolioContainer = styled.div`
+  background: white;
+  min-height: 100vh;
+  padding-top: 80px;
+  display: flex;
+  justify-content: center;
+`
 
 const ContentContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 2rem;
+  color: black;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+const Title = styled.h1`
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+`
+
+const Text = styled.p`
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: center;
+  max-width: 800px;
+`
+
+const TransitionContainer = styled.div<{ $isWhite: boolean }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: ${props => props.$isWhite ? 'white' : 'transparent'};
+  transition: background-color 0.5s ease;
+`
+
+const CRTContentContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
@@ -15,29 +60,73 @@ const ContentContainer = styled.div`
 
 export default function Portfolio() {
     const { setHasSeenBootSequence } = useBootSequence()
+    const [showCRT, setShowCRT] = useState(true)
+    const [showModern, setShowModern] = useState(false)
+    const [showContent, setShowContent] = useState(false)
+    const [progress, setProgress] = useState(0)
+    const [isWhiteBackground, setIsWhiteBackground] = useState(false)
 
     useEffect(() => {
+        const runSequence = async () => {
+            for (let i = 0; i <= 90; i += 5) {
+                setProgress(i)
+                await new Promise(resolve => setTimeout(resolve, 100))
+            }
+
+            setIsWhiteBackground(true)
+            await new Promise(resolve => setTimeout(resolve, 500))
+
+            setShowCRT(false)
+            setShowModern(true)
+
+            for (let i = 90; i <= 100; i++) {
+                setProgress(i)
+                await new Promise(resolve => setTimeout(resolve, 200))
+            }
+
+            await new Promise(resolve => setTimeout(resolve, 1000))
+            setShowModern(false)
+            setShowContent(true)
+        }
+
+        runSequence()
         setHasSeenBootSequence(true)
     }, [])
 
     return (
-        <>
-            <Navbar />
-            <CRTOuter>
-                <CRTContainer>
-                    <Scanline />
-                    <Screen>
+        <TransitionContainer $isWhite={isWhiteBackground}>
+            {showCRT && (
+                <CRTOuter>
+                    <CRTContainer>
+                        <Scanline />
+                        <Screen>
+                            <CRTContentContainer>
+                                <Terminal>
+                                    <Line data-text={`Aplicando actualización... ${progress}%`}>
+                                        Aplicando actualización... {progress}%
+                                    </Line>
+                                </Terminal>
+                            </CRTContentContainer>
+                        </Screen>
+                    </CRTContainer>
+                </CRTOuter>
+            )}
+
+            {showModern && <ModernProgressBar progress={progress} />}
+
+            {showContent && (
+                <>
+                    <PortfolioNavbar />
+                    <PortfolioContainer>
                         <ContentContainer>
-                            <Terminal>
-                                <Line data-text="Portfolio">Portfolio</Line>
-                                <Line data-text="Texto placeholder para la sección Portfolio...">
-                                    Texto placeholder para la sección Portfolio...
-                                </Line>
-                            </Terminal>
+                            <Title>Portfolio</Title>
+                            <Text>
+                                Texto placeholder para la sección Portfolio...
+                            </Text>
                         </ContentContainer>
-                    </Screen>
-                </CRTContainer>
-            </CRTOuter>
-        </>
+                    </PortfolioContainer>
+                </>
+            )}
+        </TransitionContainer>
     )
 } 

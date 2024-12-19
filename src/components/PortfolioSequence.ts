@@ -1,4 +1,6 @@
-type SetLinesFunction = React.Dispatch<React.SetStateAction<string[]>>;
+import { Dispatch, SetStateAction } from "react";
+
+type SetLinesFunction = Dispatch<SetStateAction<string[]>>;
 
 export const executePortfolioSequence = async (
   setLines: SetLinesFunction,
@@ -7,38 +9,69 @@ export const executePortfolioSequence = async (
   setShowWelcome: (show: boolean) => void,
   signal?: AbortSignal
 ) => {
-  const delay = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
-  const addLine = (line: string) => setLines((prev) => [...prev, line]);
-  const updateLastLine = (line: string) =>
-    setLines((prev) => [...prev.slice(0, -1), line]);
+  const delay = (ms: number): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => resolve(), ms);
+      signal?.addEventListener("abort", () => {
+        clearTimeout(timeout);
+        reject(new Error("cancelled"));
+      });
+    });
+  };
+
+  const commands = [
+    { text: "Solicitando acceso al Portfolio...", delay: 1000 },
+    {
+      text: "Análisis completado",
+      delay: 1200,
+      loading: async (
+        setLine: (text: string) => void,
+        delay: (ms: number) => Promise<void>
+      ) => {
+        setLine("Analizando sistema...");
+        await delay(1200);
+        return "Análisis completado";
+      },
+    },
+    { text: "Se requiere actualización a la última versión", delay: 1000 },
+    { text: "Iniciando proceso de actualización...", delay: 800 },
+    {
+      text: "Actualización completada",
+      delay: 1500,
+      loading: async (
+        setLine: (text: string) => void,
+        delay: (ms: number) => Promise<void>
+      ) => {
+        const steps = ["Actualizando componentes..."];
+
+        for (const step of steps) {
+          setLine(step);
+          await delay(600);
+        }
+
+        return "Actualización completada";
+      },
+    },
+    { text: "Preparando nueva interfaz...", delay: 500 },
+  ];
 
   try {
-    // Ocultamos elementos
     setShowNavbar(false);
     setShowMenu(false);
     setShowWelcome(false);
     await delay(500);
 
-    // Iniciamos secuencia
-    setLines(["Solicitando acceso al Portfolio..."]);
-    await delay(2000);
-
-    addLine("Se requiere actualización a la última versión.");
-    await delay(1500);
-
-    addLine("Iniciando actualización...");
-    await delay(1000);
-
-    // Secuencia de porcentajes
-    for (let i = 0; i <= 100; i += 5) {
-      if (signal?.aborted) throw new Error("cancelled");
-      updateLastLine(`Progreso: ${i}%`);
-      await delay(100);
+    for (const command of commands) {
+      if (command.loading) {
+        const finalText = await command.loading((text) => {
+          setLines((prev) => [...prev.slice(0, -1), text]);
+        }, delay);
+        setLines((prev) => [...prev.slice(0, -1), finalText]);
+      } else {
+        setLines((prev) => [...prev, command.text]);
+      }
+      await delay(command.delay);
     }
-
-    addLine("Actualización completada.");
-    await delay(1000);
 
     return true;
   } catch (error) {
