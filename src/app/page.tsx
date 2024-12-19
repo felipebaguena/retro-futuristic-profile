@@ -100,6 +100,10 @@ export default function Home() {
     }, 500)
   }
 
+  const handleSobreMiClick = () => {
+    setMenuExiting(true)
+  }
+
   return (
     <>
       {showWelcome && <Navbar onContactClick={handleContactClick} />}
@@ -125,6 +129,7 @@ export default function Home() {
                       <MenuGrid
                         onContactClick={handleContactClick}
                         onGithubClick={handleGithubClick}
+                        onSobreMiClick={handleSobreMiClick}
                         isExiting={menuExiting}
                       />
                     )}

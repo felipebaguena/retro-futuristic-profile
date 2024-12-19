@@ -9,16 +9,12 @@ import { useState } from 'react'
 interface MenuGridProps {
     onContactClick: () => void;
     onGithubClick: () => void;
+    onSobreMiClick: () => void;
     isExiting?: boolean;
 }
 
 interface MenuContainerProps {
     $isExiting?: boolean;
-}
-
-interface MenuItemProps {
-    $delay: number;
-    onClick?: () => void;
 }
 
 const MenuContainer = styled.div<MenuContainerProps>`
@@ -46,7 +42,7 @@ const fadeIn = keyframes`
   }
 `
 
-const MenuItem = styled.div<MenuItemProps>`
+const MenuItem = styled.div<{ delay: number, onClick?: () => void }>`
   border: 2px solid ${({ theme }) => theme.colors.crtText};
   padding: 1rem;
   display: flex;
@@ -61,7 +57,7 @@ const MenuItem = styled.div<MenuItemProps>`
   height: 90px;
   opacity: 0;
   animation: ${fadeIn} 0.5s ease-out forwards;
-  animation-delay: ${({ $delay }) => $delay}s;
+  animation-delay: ${({ delay }) => delay}s;
 
   &:hover {
     background: rgba(5, 50, 30, 0.5);
@@ -80,12 +76,11 @@ const MenuItem = styled.div<MenuItemProps>`
   }
 `
 
-export const MenuGrid = ({ onContactClick, onGithubClick, isExiting }: MenuGridProps) => {
+export const MenuGrid = ({ onContactClick, onGithubClick, onSobreMiClick, isExiting }: MenuGridProps) => {
     const router = useRouter()
-    const [menuExiting, setMenuExiting] = useState(false)
 
     const handleSobreMiClick = () => {
-        setMenuExiting(true)
+        onSobreMiClick()
         setTimeout(() => {
             router.push('/sobre-mi')
         }, 500)
@@ -93,19 +88,19 @@ export const MenuGrid = ({ onContactClick, onGithubClick, isExiting }: MenuGridP
 
     return (
         <MenuContainer $isExiting={isExiting}>
-            <MenuItem $delay={0}>
+            <MenuItem delay={0}>
                 <FaFolder />
                 <CRTText data-text="Portfolio">Portfolio</CRTText>
             </MenuItem>
-            <MenuItem $delay={0.4} onClick={onContactClick}>
+            <MenuItem delay={0.4} onClick={onContactClick}>
                 <FaEnvelope />
                 <CRTText data-text="Contacto">Contacto</CRTText>
             </MenuItem>
-            <MenuItem $delay={0.8}>
+            <MenuItem delay={0.8} onClick={handleSobreMiClick}>
                 <FaUser />
                 <CRTText data-text="Sobre mí">Sobre mí</CRTText>
             </MenuItem>
-            <MenuItem $delay={1.2} onClick={onGithubClick}>
+            <MenuItem delay={1.2} onClick={onGithubClick}>
                 <FaGithub />
                 <CRTText data-text="Github">Github</CRTText>
             </MenuItem>
