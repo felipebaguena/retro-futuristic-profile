@@ -7,7 +7,7 @@ import { CRTContainer, Scanline, Screen, CRTOuter } from '@/components/styles/CR
 import { Terminal, Line } from '@/components/styles/TerminalStyles'
 import { ModernProgressBar } from '@/components/ModernProgressBar'
 
-const PortfolioContainer = styled.div`
+const ModernDesignContainer = styled.div`
   background: white;
   min-height: 100vh;
   padding-top: 80px;
@@ -128,14 +128,14 @@ export default function Portfolio() {
             {showContent && (
                 <>
                     <PortfolioNavbar />
-                    <PortfolioContainer>
+                    <ModernDesignContainer>
                         <ContentContainer>
                             <Title>Portfolio</Title>
                             <Text>
                                 Texto placeholder para la sección Portfolio...
                             </Text>
                         </ContentContainer>
-                    </PortfolioContainer>
+                    </ModernDesignContainer>
                 </>
             )}
         </TransitionContainer>
