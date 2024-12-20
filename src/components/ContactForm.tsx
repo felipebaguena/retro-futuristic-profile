@@ -33,12 +33,21 @@ const CenterContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  padding: 1rem;
+  box-sizing: border-box;
 `
 
 const FormContainer = styled.div<{ $isExiting?: boolean }>`
   width: 100%;
   max-width: 600px;
   animation: ${props => props.$isExiting ? fadeOut : fadeIn} 0.5s ease-out forwards;
+  background: ${({ theme }) => theme.colors.terminal};
+  padding: 1rem;
+  box-sizing: border-box;
+
+  @media (max-width: 580px) {
+    padding: 0.8rem;
+  }
 `
 
 const StyledForm = styled.form`

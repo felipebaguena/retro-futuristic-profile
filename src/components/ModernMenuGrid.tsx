@@ -16,6 +16,13 @@ const fadeIn = keyframes`
   }
 `
 
+const MenuWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`
+
 const MenuContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -62,7 +69,7 @@ export const ModernMenuGrid = () => {
     const { showContactForm, contactFormExiting, handleContactClick, handleCloseContact } = useContactForm()
 
     return (
-        <>
+        <MenuWrapper>
             <MenuContainer>
                 <MenuItem onClick={() => router.push('/portfolio')}>
                     <FaFolder />
@@ -87,6 +94,6 @@ export const ModernMenuGrid = () => {
                     isExiting={contactFormExiting}
                 />
             )}
-        </>
+        </MenuWrapper>
     )
 } 

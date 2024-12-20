@@ -53,6 +53,8 @@ const Overlay = styled.div<{ $isExiting?: boolean }>`
   align-items: center;
   z-index: 1000;
   animation: ${props => props.$isExiting ? fadeOutOverlay : fadeInOverlay} 0.3s ease-out forwards;
+  padding: 1rem;
+  box-sizing: border-box;
 `
 
 const FormContainer = styled.div<{ $isExiting?: boolean }>`
@@ -64,6 +66,11 @@ const FormContainer = styled.div<{ $isExiting?: boolean }>`
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   animation: ${props => props.$isExiting ? slideOutForm : slideInForm} 0.3s ease-out forwards;
   font-family: 'Arial', sans-serif;
+
+  @media (max-width: 580px) {
+    padding: 1.5rem;
+    width: 100%;
+  }
 `
 
 const Header = styled.div`
@@ -73,6 +80,11 @@ const Header = styled.div`
   margin-bottom: 2rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid #eee;
+
+  @media (max-width: 580px) {
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+  }
 `
 
 const Title = styled.h2`
@@ -99,6 +111,10 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+
+  @media (max-width: 580px) {
+    gap: 1.2rem;
+  }
 `
 
 const InputGroup = styled.div`

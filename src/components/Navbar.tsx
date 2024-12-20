@@ -1,10 +1,11 @@
 'use client'
 import styled from 'styled-components'
-import { CRTText } from '@/components/styles/CRTText'
+import { CRTText, rgbShift } from '@/components/styles/CRTText'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useBootSequence } from '@/context/BootSequenceContext'
 import { useEffect } from 'react'
+import { FaHome, FaUser, FaEnvelope, FaGithub, FaFolder } from 'react-icons/fa'
 
 const NavContainer = styled.div<{ $firstLoad: boolean }>`
   position: fixed;
@@ -47,6 +48,21 @@ const NavLinks = styled.div`
   display: flex;
   gap: 2rem;
   flex-shrink: 0;
+
+  @media (max-width: 580px) {
+    gap: 1.5rem;
+  }
+`
+
+const Icon = styled.div`
+  display: none;
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.colors.crtText};
+  animation: ${rgbShift} 4s infinite;
+
+  @media (max-width: 580px) {
+    display: block;
+  }
 `
 
 const Decoration = styled(CRTText)`
@@ -56,6 +72,10 @@ const Decoration = styled(CRTText)`
   letter-spacing: 0;
   white-space: nowrap;
   overflow: hidden;
+
+  @media (max-width: 580px) {
+    display: none;
+  }
 `
 
 const NavLink = styled(Link)`
@@ -70,6 +90,12 @@ const NavLink = styled(Link)`
   ${CRTText} {
     font-size: 0.9rem;
     text-transform: uppercase;
+  }
+
+  @media (max-width: 580px) {
+    ${CRTText} {
+      display: none;
+    }
   }
 `
 
@@ -126,18 +152,33 @@ export const Navbar = ({ onContactClick, onHomeClick }: NavbarProps) => {
                     <NavLinks>
                         <NavLink href="/" onClick={handleHomeClick}>
                             <CRTText data-text="Inicio">Inicio</CRTText>
+                            <Icon>
+                                <FaHome />
+                            </Icon>
                         </NavLink>
                         <NavLink href="/portfolio">
                             <CRTText data-text="Portfolio">Portfolio</CRTText>
+                            <Icon>
+                                <FaFolder />
+                            </Icon>
                         </NavLink>
                         <NavLink href="/contacto" onClick={handleContactClick}>
                             <CRTText data-text="Contacto">Contacto</CRTText>
+                            <Icon>
+                                <FaEnvelope />
+                            </Icon>
                         </NavLink>
                         <NavLink href="/sobre-mi">
                             <CRTText data-text="Sobre mí">Sobre mí</CRTText>
+                            <Icon>
+                                <FaUser />
+                            </Icon>
                         </NavLink>
                         <NavLink href="https://github.com/felipebaguena" target="_blank">
                             <CRTText data-text="Github">Github</CRTText>
+                            <Icon>
+                                <FaGithub />
+                            </Icon>
                         </NavLink>
                     </NavLinks>
                     <Decoration data-text={asterisks}>

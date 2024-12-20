@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useContactForm } from '@/hooks/useContactForm'
 import { ModernContactForm } from './ModernContactForm'
+import { HiHome, HiFolder, HiMail, HiUser } from 'react-icons/hi'
+import { FaGithub } from 'react-icons/fa'
 
 const NavContainer = styled.div`
   position: fixed;
@@ -33,6 +35,10 @@ const Nav = styled.nav`
 const NavLinks = styled.div`
   display: flex;
   gap: 2rem;
+
+  @media (max-width: 580px) {
+    gap: 1.5rem;
+  }
 `
 
 const NavLink = styled(Link)`
@@ -44,9 +50,27 @@ const NavLink = styled(Link)`
   transition: opacity 0.3s ease;
   font-family: 'Arial', sans-serif;
   letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 
   &:hover {
     opacity: 1;
+  }
+
+  @media (max-width: 580px) {
+    span {
+      display: none;
+    }
+  }
+`
+
+const Icon = styled.div`
+  display: none;
+  font-size: 1.3rem;
+
+  @media (max-width: 580px) {
+    display: block;
   }
 `
 
@@ -60,14 +84,35 @@ export const PortfolioNavbar = () => {
                 <ContentContainer>
                     <Nav>
                         <NavLinks>
-                            <NavLink href="/">Inicio</NavLink>
-                            <NavLink href="/portfolio">Portfolio</NavLink>
-                            <NavLink href="#" onClick={handleContactClick}>
-                                Contacto
+                            <NavLink href="/">
+                                <span>Inicio</span>
+                                <Icon>
+                                    <HiHome />
+                                </Icon>
                             </NavLink>
-                            <NavLink href="/sobre-mi">Sobre mí</NavLink>
+                            <NavLink href="/portfolio">
+                                <span>Portfolio</span>
+                                <Icon>
+                                    <HiFolder />
+                                </Icon>
+                            </NavLink>
+                            <NavLink href="#" onClick={handleContactClick}>
+                                <span>Contacto</span>
+                                <Icon>
+                                    <HiMail />
+                                </Icon>
+                            </NavLink>
+                            <NavLink href="/sobre-mi">
+                                <span>Sobre mí</span>
+                                <Icon>
+                                    <HiUser />
+                                </Icon>
+                            </NavLink>
                             <NavLink href="https://github.com/felipebaguena" target="_blank">
-                                Github
+                                <span>Github</span>
+                                <Icon>
+                                    <FaGithub />
+                                </Icon>
                             </NavLink>
                         </NavLinks>
                     </Nav>

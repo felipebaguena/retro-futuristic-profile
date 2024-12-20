@@ -32,7 +32,6 @@ const ModernContentContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  padding: 2rem;
   color: black;
   font-family: 'Arial', sans-serif;
   text-align: center;
