@@ -2,7 +2,7 @@
 import styled from 'styled-components'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useContactForm } from '@/hooks/useContactForm'
 import { ModernContactForm } from './ModernContactForm'
 
 const NavContainer = styled.div`
@@ -52,21 +52,7 @@ const NavLink = styled(Link)`
 
 export const PortfolioNavbar = () => {
     const router = useRouter()
-    const [showContactForm, setShowContactForm] = useState(false)
-    const [contactFormExiting, setContactFormExiting] = useState(false)
-
-    const handleContactClick = (e: React.MouseEvent) => {
-        e.preventDefault()
-        setShowContactForm(true)
-    }
-
-    const handleCloseContact = () => {
-        setContactFormExiting(true)
-        setTimeout(() => {
-            setShowContactForm(false)
-            setContactFormExiting(false)
-        }, 500)
-    }
+    const { showContactForm, contactFormExiting, handleContactClick, handleCloseContact } = useContactForm()
 
     return (
         <>

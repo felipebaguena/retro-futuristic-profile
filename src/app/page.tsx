@@ -12,7 +12,7 @@ import { executeGithubSequence } from '@/components/GithubSequence'
 import { useBootSequence } from '@/context/BootSequenceContext'
 import { executePortfolioSequence } from '@/components/PortfolioSequence'
 import { useRouter } from 'next/navigation'
-import { ModernContactForm } from '@/components/ModernContactForm'
+import { ModernMenuGrid } from '@/components/ModernMenuGrid'
 
 const ContentContainer = styled.div`
   max-width: 1200px;
@@ -179,6 +179,7 @@ export default function Home() {
             <Text>
               Texto placeholder para la sección Home...
             </Text>
+            <ModernMenuGrid />
           </ModernContentContainer>
         </ModernContainer>
       </>
