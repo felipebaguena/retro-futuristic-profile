@@ -6,46 +6,13 @@ import { Navbar } from '@/components/Navbar'
 import { PortfolioNavbar } from '@/components/PortfolioNavbar'
 import { useBootSequence } from '@/context/BootSequenceContext'
 import { useEffect } from 'react'
-
-const ContentContainer = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-  height: 100%;
-`
-
-const ModernContainer = styled.div`
-  background: white;
-  padding-top: 80px;
-  display: flex;
-  justify-content: center;
-`
-
-const ModernContentContainer = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-  padding: 2rem;
-  color: black;
-  font-family: 'Arial', sans-serif;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-
-const Title = styled.h1`
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  text-align: center;
-`
-
-const Text = styled.p`
-  font-size: 1rem;
-  line-height: 1.6;
-  text-align: center;
-  max-width: 800px;
-`
+import {
+    ModernPageContainer,
+    ModernContentContainer,
+    ModernTitle,
+    ModernText,
+    CRTContentContainer
+} from '@/components/styles/CommonElements'
 
 export default function SobreMi() {
     const { setHasSeenBootSequence, hasAppliedNewDesign } = useBootSequence()
@@ -58,14 +25,14 @@ export default function SobreMi() {
         return (
             <>
                 <PortfolioNavbar />
-                <ModernContainer>
+                <ModernPageContainer>
                     <ModernContentContainer>
-                        <Title>Sobre mí</Title>
-                        <Text>
+                        <ModernTitle>Sobre mí</ModernTitle>
+                        <ModernText>
                             Texto placeholder para la sección Sobre mí...
-                        </Text>
+                        </ModernText>
                     </ModernContentContainer>
-                </ModernContainer>
+                </ModernPageContainer>
             </>
         )
     }
@@ -77,14 +44,14 @@ export default function SobreMi() {
                 <CRTContainer>
                     <Scanline />
                     <Screen>
-                        <ContentContainer>
+                        <CRTContentContainer>
                             <Terminal>
                                 <Line data-text="Sobre mí">Sobre mí</Line>
                                 <Line data-text="Texto placeholder para la sección Sobre mí...">
                                     Texto placeholder para la sección Sobre mí...
                                 </Line>
                             </Terminal>
-                        </ContentContainer>
+                        </CRTContentContainer>
                     </Screen>
                 </CRTContainer>
             </CRTOuter>

@@ -13,45 +13,13 @@ import { useBootSequence } from '@/context/BootSequenceContext'
 import { executePortfolioSequence } from '@/components/PortfolioSequence'
 import { useRouter } from 'next/navigation'
 import { ModernMenuGrid } from '@/components/ModernMenuGrid'
-
-const ContentContainer = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-  height: 100%;
-`
-
-const ModernContainer = styled.div`
-  background: white;
-  padding-top: 80px;
-  display: flex;
-  justify-content: center;
-`
-
-const ModernContentContainer = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-  color: black;
-  font-family: 'Arial', sans-serif;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-
-const Title = styled.h1`
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  text-align: center;
-`
-
-const Text = styled.p`
-  font-size: 1rem;
-  line-height: 1.6;
-  text-align: center;
-  max-width: 800px;
-`
+import {
+  ModernPageContainer,
+  ModernContentContainer,
+  ModernTitle,
+  ModernText,
+  CRTContentContainer
+} from '@/components/styles/CommonElements'
 
 export default function Home() {
   const [lines, setLines] = useState<string[]>([])
@@ -171,15 +139,15 @@ export default function Home() {
     return (
       <>
         <PortfolioNavbar />
-        <ModernContainer>
+        <ModernPageContainer>
           <ModernContentContainer>
-            <Title>Home</Title>
-            <Text>
+            <ModernTitle>Home</ModernTitle>
+            <ModernText>
               Texto placeholder para la sección Home...
-            </Text>
+            </ModernText>
             <ModernMenuGrid />
           </ModernContentContainer>
-        </ModernContainer>
+        </ModernPageContainer>
       </>
     )
   }
@@ -196,7 +164,7 @@ export default function Home() {
         <CRTContainer>
           <Scanline />
           <Screen>
-            <ContentContainer>
+            <CRTContentContainer>
               <Terminal>
                 {lines.map((line, i) => (
                   <Line key={i} data-text={line}>{line}</Line>
@@ -227,7 +195,7 @@ export default function Home() {
                   />
                 )}
               </Terminal>
-            </ContentContainer>
+            </CRTContentContainer>
           </Screen>
         </CRTContainer>
       </CRTOuter>

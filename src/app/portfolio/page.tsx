@@ -6,39 +6,13 @@ import { useEffect, useState } from 'react'
 import { CRTContainer, Scanline, Screen, CRTOuter } from '@/components/styles/CRTEffect'
 import { Terminal, Line } from '@/components/styles/TerminalStyles'
 import { ModernProgressBar } from '@/components/ModernProgressBar'
-
-const ModernDesignContainer = styled.div`
-  background: white;
-  padding-top: 80px;
-  display: flex;
-  justify-content: center;
-`
-
-const ContentContainer = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-  padding: 2rem;
-  color: black;
-  font-family: 'Arial', sans-serif;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-
-const Title = styled.h1`
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  text-align: center;
-`
-
-const Text = styled.p`
-  font-size: 1rem;
-  line-height: 1.6;
-  text-align: center;
-  max-width: 800px;
-`
+import {
+    ModernPageContainer,
+    ModernContentContainer,
+    ModernTitle,
+    ModernText,
+    CRTContentContainer
+} from '@/components/styles/CommonElements'
 
 const TransitionContainer = styled.div<{ $isWhite: boolean }>`
   position: fixed;
@@ -49,13 +23,6 @@ const TransitionContainer = styled.div<{ $isWhite: boolean }>`
   background: ${props => props.$isWhite ? 'white' : 'transparent'};
   transition: background-color 0.5s ease;
   suppressHydrationWarning: true;
-`
-
-const CRTContentContainer = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-  height: 100%;
 `
 
 export default function Portfolio() {
@@ -127,14 +94,14 @@ export default function Portfolio() {
             {showContent && (
                 <>
                     <PortfolioNavbar />
-                    <ModernDesignContainer>
-                        <ContentContainer>
-                            <Title>Portfolio</Title>
-                            <Text>
+                    <ModernPageContainer>
+                        <ModernContentContainer>
+                            <ModernTitle>Portfolio</ModernTitle>
+                            <ModernText>
                                 Texto placeholder para la sección Portfolio...
-                            </Text>
-                        </ContentContainer>
-                    </ModernDesignContainer>
+                            </ModernText>
+                        </ModernContentContainer>
+                    </ModernPageContainer>
                 </>
             )}
         </TransitionContainer>
