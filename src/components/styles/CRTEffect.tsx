@@ -80,11 +80,11 @@ const scanline = keyframes`
 `
 
 export const CRTOuter = styled.div`
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
   background: #111;
   padding: 30px;
   box-sizing: border-box;
@@ -93,21 +93,21 @@ export const CRTOuter = styled.div`
     -5px -5px 20px rgba(255, 255, 255, 0.05),
     5px 5px 20px rgba(0, 0, 0, 0.8);
   suppressHydrationWarning: true;
+  overflow-y: auto;
 `
 
 export const CRTContainer = styled.div`
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100%;
   background: ${({ theme }) => theme.colors.crtBackground};
   background-image: radial-gradient(
     ellipse,
     ${({ theme }) => theme.colors.crtBackground} 0%,
     #050505 90%
   );
-  overflow: hidden;
   animation: ${textShadow} 1.6s infinite;
   border-radius: 20px;
   perspective: 1000px;
@@ -149,7 +149,7 @@ export const Scanline = styled.div`
 
 export const Screen = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   background: transparent;
   color: #00ff00;
   text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);

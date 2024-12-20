@@ -16,18 +16,42 @@ import {
 import Image from 'next/image'
 import { CRTImageContainer } from '@/components/styles/CRTImage'
 
-const ProfileSection = styled.div`
+const CRTProfileSection = styled.div`
   display: flex;
-  gap: 3rem;
+  gap: 2rem;
   align-items: flex-start;
-  margin: 2rem 0;
-  max-width: 1000px;
+  margin: 1rem 0;
   width: 100%;
 
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
+  }
+`
+
+const CRTTextContent = styled.div`
+  flex: 1;
+  min-width: 0;
+
+  ${Line} {
+    position: relative;
+    display: block;
+    width: 100%;
+    text-align: left;
+
+    &::before {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      text-align: left;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
   }
 `
 
@@ -46,12 +70,21 @@ const ImageContainer = styled.div`
   }
 `
 
-const TextContent = styled.div`
-  flex: 1;
-  text-align: left;
+const SectionBlock = styled.div`
+  padding: 1rem;
+  margin: 1rem 0;
+  
+  &:first-child {
+    margin-top: 0;
+  }
 
-  @media (max-width: 768px) {
-    text-align: center;
+  ${Line} {
+    margin: 0.5rem 0;
+    
+    &:first-child { // Para los títulos
+      margin-bottom: 1rem;
+      color: ${({ theme }) => theme.colors.crtHighlight};
+    }
   }
 `
 
@@ -69,7 +102,12 @@ export default function SobreMi() {
                 <ModernPageContainer>
                     <ModernContentContainer>
                         <ModernTitle>Sobre mí</ModernTitle>
-                        <ProfileSection>
+                        <CRTProfileSection>
+                            <CRTTextContent>
+                                <ModernText>
+                                    Texto placeholder para la sección Sobre mí...
+                                </ModernText>
+                            </CRTTextContent>
                             <ImageContainer>
                                 <Image
                                     src="/images/fotocv1.jpg"
@@ -80,12 +118,7 @@ export default function SobreMi() {
                                     priority
                                 />
                             </ImageContainer>
-                            <TextContent>
-                                <ModernText>
-                                    Texto placeholder para la sección Sobre mí...
-                                </ModernText>
-                            </TextContent>
-                        </ProfileSection>
+                        </CRTProfileSection>
                     </ModernContentContainer>
                 </ModernPageContainer>
             </>
@@ -101,20 +134,55 @@ export default function SobreMi() {
                     <Screen>
                         <CRTContentContainer>
                             <Terminal>
-                                <Line data-text="Sobre mí">Sobre mí</Line>
-                                <Line data-text="Texto placeholder para la sección Sobre mí...">
-                                    Texto placeholder para la sección Sobre mí...
-                                </Line>
-                                <CRTImageContainer>
-                                    <Image
-                                        src="/images/fotocv1.jpg"
-                                        alt="Felipe Báguena"
-                                        fill
-                                        style={{ objectFit: 'cover' }}
-                                        sizes="300px"
-                                        priority
-                                    />
-                                </CRTImageContainer>
+                                <CRTProfileSection>
+                                    <CRTTextContent>
+                                        <SectionBlock>
+                                            <Line data-text="#### Experiencia ####">
+                                                #### Experiencia ####
+                                            </Line>
+                                            <Line data-text="Desarrollador web con experiencia en React, Next.js y TypeScript.">
+                                                Desarrollador web con experiencia en React, Next.js y TypeScript.
+                                            </Line>
+                                        </SectionBlock>
+
+                                        <SectionBlock>
+                                            <Line data-text="#### Formación ####">
+                                                #### Formación ####
+                                            </Line>
+                                            <Line data-text="Bootcamp Full Stack Developer">
+                                                Bootcamp Full Stack Developer
+                                            </Line>
+                                        </SectionBlock>
+
+                                        <SectionBlock>
+                                            <Line data-text="#### Habilidades ####">
+                                                #### Habilidades ####
+                                            </Line>
+                                            <Line data-text="JavaScript, React, Node.js, SQL, MongoDB, Git">
+                                                JavaScript, React, Node.js, SQL, MongoDB, Git
+                                            </Line>
+                                        </SectionBlock>
+
+                                        <SectionBlock>
+                                            <Line data-text="#### Intereses ####">
+                                                #### Intereses ####
+                                            </Line>
+                                            <Line data-text="Desarrollo web, nuevas tecnologías, música">
+                                                Desarrollo web, nuevas tecnologías, música
+                                            </Line>
+                                        </SectionBlock>
+                                    </CRTTextContent>
+                                    <CRTImageContainer>
+                                        <Image
+                                            src="/images/fotocv1.jpg"
+                                            alt="Felipe Báguena"
+                                            fill
+                                            style={{ objectFit: 'cover' }}
+                                            sizes="300px"
+                                            priority
+                                        />
+                                    </CRTImageContainer>
+                                </CRTProfileSection>
                             </Terminal>
                         </CRTContentContainer>
                     </Screen>

@@ -196,7 +196,13 @@ export const CRTImageContainer = styled.div`
   }
 
   img {
-    filter: brightness(0.9) contrast(1.2) sepia(0.2);
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    filter: brightness(1) contrast(1) sepia(0.15) blur(0.3px) saturate(1.4);
+    transform: scale(1.01);
+    image-resolution: 72dpi;
+    transform-origin: center;
+    transform: scale(0.9999);
   }
 
   &.noise-active::before {

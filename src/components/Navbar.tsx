@@ -16,6 +16,23 @@ const NavContainer = styled.div<{ $firstLoad: boolean }>`
   margin-top: 1rem;
   animation: ${props => props.$firstLoad ? 'slideDown 0.5s ease-out' : 'none'};
   
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2rem;
+    left: 0;
+    width: 100%;
+    height: calc(100% + 2rem);
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.15) 0%,
+      rgba(0, 0, 0, 0.1) 70%,
+      rgba(0, 0, 0, 0.05) 100%
+    );
+    backdrop-filter: blur(15px);
+    z-index: -1;
+  }
+  
   @keyframes slideDown {
     from {
       transform: translateY(-100%);
@@ -29,6 +46,7 @@ const NavContainer = styled.div<{ $firstLoad: boolean }>`
 `
 
 const ContentContainer = styled.div`
+  position: relative;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;

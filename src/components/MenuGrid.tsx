@@ -28,12 +28,9 @@ const MenuContainer = styled.div<MenuContainerProps>`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 1rem;
+  position: relative;
   width: max-content;
+  margin: 2rem auto;
   opacity: ${props => props.$isExiting ? 0 : 1};
   transition: opacity 0.5s ease-out;
 `;

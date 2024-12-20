@@ -5,6 +5,7 @@ export const ModernPageContainer = styled.div`
   padding-top: 80px;
   display: flex;
   justify-content: center;
+  min-height: 100vh;
 `;
 
 export const ModernContentContainer = styled.div`

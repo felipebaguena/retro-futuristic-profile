@@ -3,6 +3,7 @@ import { ThemeProvider } from 'styled-components'
 import StyledComponentsRegistry from './registry'
 import { theme } from '@/styles/theme'
 import { BootSequenceProvider } from '@/context/BootSequenceContext'
+import { GlobalStyle } from '@/styles/GlobalStyle'
 
 export default function RootLayout({
   children,
@@ -16,6 +17,7 @@ export default function RootLayout({
         <StyledComponentsRegistry>
           <BootSequenceProvider>
             <ThemeProvider theme={theme}>
+              <GlobalStyle />
               {children}
             </ThemeProvider>
           </BootSequenceProvider>

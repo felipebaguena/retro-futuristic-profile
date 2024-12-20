@@ -29,10 +29,8 @@ const CenterContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  margin: 2rem auto;
   padding: 1rem;
   box-sizing: border-box;
 `
