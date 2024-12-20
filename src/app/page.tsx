@@ -23,7 +23,6 @@ const ContentContainer = styled.div`
 
 const ModernContainer = styled.div`
   background: white;
-  min-height: 100vh;
   padding-top: 80px;
   display: flex;
   justify-content: center;

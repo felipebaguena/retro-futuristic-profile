@@ -9,7 +9,6 @@ import { ModernProgressBar } from '@/components/ModernProgressBar'
 
 const ModernDesignContainer = styled.div`
   background: white;
-  min-height: 100vh;
   padding-top: 80px;
   display: flex;
   justify-content: center;
