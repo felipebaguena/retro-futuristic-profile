@@ -5,7 +5,7 @@ import { Terminal, Line } from '@/components/styles/TerminalStyles'
 import { Navbar } from '@/components/Navbar'
 import { PortfolioNavbar } from '@/components/PortfolioNavbar'
 import { useBootSequence } from '@/context/BootSequenceContext'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import {
     ModernPageContainer,
     ModernContentContainer,
@@ -72,9 +72,23 @@ const ImageContainer = styled.div`
   }
 `
 
-const SectionBlock = styled.div`
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`
+
+const SectionBlock = styled.div<{ delay: number }>`
   padding: 1rem;
   margin: 1rem 0;
+  opacity: 0;
+  animation: ${fadeIn} 0.5s ease-out forwards;
+  animation-delay: ${({ delay }) => delay}ms;
   
   &:first-child {
     margin-top: 0;
@@ -85,7 +99,7 @@ const SectionBlock = styled.div`
   ${Line} {
     margin: 0.5rem 0;
     
-    &:first-child { // Para los títulos
+    &:first-child {
       margin-bottom: 1rem;
       color: ${({ theme }) => theme.colors.crtHighlight};
     }
@@ -185,7 +199,7 @@ export default function SobreMi() {
                             <Terminal>
                                 <CRTProfileSection>
                                     <CRTTextContent>
-                                        <SectionBlock>
+                                        <SectionBlock delay={0}>
                                             <IntroSection>
                                                 <StyledTextLineWrapper>
                                                     <TextLine text={sobreMiTexts.intro} />
@@ -203,17 +217,17 @@ export default function SobreMi() {
                                             </IntroSection>
                                         </SectionBlock>
 
-                                        <SectionBlock>
+                                        <SectionBlock delay={500}>
                                             <TextLine text={sobreMiTexts.formacionTitle} />
                                             <TextLine text={sobreMiTexts.formacionContent} />
                                         </SectionBlock>
 
-                                        <SectionBlock>
+                                        <SectionBlock delay={1000}>
                                             <TextLine text={sobreMiTexts.habilidadesTitle} />
                                             <TextLine text={sobreMiTexts.habilidadesContent} />
                                         </SectionBlock>
 
-                                        <SectionBlock>
+                                        <SectionBlock delay={1500}>
                                             <TextLine text={sobreMiTexts.interesesTitle} />
                                             <TextLine text={sobreMiTexts.interesesContent} />
                                         </SectionBlock>
