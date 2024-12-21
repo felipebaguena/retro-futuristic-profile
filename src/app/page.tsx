@@ -25,7 +25,7 @@ const MenuContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 20rem);
+  min-height: calc(100vh - 26rem);
   width: 100%;
 `
 
@@ -44,18 +44,49 @@ export default function Home() {
   const [showMenu, setShowMenu] = useState(false)
   const [isLoadingPortfolio, setIsLoadingPortfolio] = useState(false)
   const router = useRouter()
+  const [welcomeLines, setWelcomeLines] = useState<string[]>([])
+
+  const executeWelcomeSequence = async () => {
+    const messages = [
+      "Hola, soy Felipe Báguena.",
+      "Esta es mi web personal.",
+      "Bienvenido."
+    ]
+
+    for (let i = 0; i < messages.length; i++) {
+      let currentMessage = ""
+      for (let j = 0; j < messages[i].length; j++) {
+        await new Promise(resolve => setTimeout(resolve, 30))
+        currentMessage += messages[i][j]
+        setWelcomeLines(prev => {
+          const newLines = [...prev]
+          newLines[i] = currentMessage
+          return newLines
+        })
+      }
+      await new Promise(resolve => setTimeout(resolve, 300))
+    }
+  }
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (!hasSeenBootSequence) {
         abortControllerRef.current = new AbortController()
-        executeBootSequence(setLines, setShowWelcome, setShowContent, abortControllerRef.current.signal).then(() => {
-          setShowMenu(true)
-        })
+        executeBootSequence(setLines, setShowWelcome, setShowContent, abortControllerRef.current.signal)
+          .then(() => {
+            executeWelcomeSequence().then(() => {
+              setShowMenu(true)
+            })
+          })
         setHasSeenBootSequence(true)
       } else {
         setShowWelcome(true)
         setShowContent(true)
+        setWelcomeLines([
+          "Hola, soy Felipe Báguena.",
+          "Esta es mi web personal.",
+          "Bienvenido."
+        ])
         setShowMenu(true)
       }
 
@@ -177,11 +208,9 @@ export default function Home() {
                 {lines.map((line, i) => (
                   <Line key={i} data-text={line}>{line}</Line>
                 ))}
-                {showContent && !isLoadingPortfolio && (
-                  <Line data-text="Esta es la web de Felipe Báguena Peña. Bienvenido.">
-                    Esta es la web de Felipe Báguena Peña. Bienvenido.
-                  </Line>
-                )}
+                {showContent && !isLoadingPortfolio && welcomeLines.map((line, i) => (
+                  <Line key={`welcome-${i}`} data-text={line}>{line}</Line>
+                ))}
                 {isLoadingGithub && githubLines.map((line, i) => (
                   <Line key={`github-${i}`} data-text={line}>{line}</Line>
                 ))}

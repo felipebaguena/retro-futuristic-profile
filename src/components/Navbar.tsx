@@ -174,10 +174,10 @@ export const Navbar = ({ onContactClick, onHomeClick }: NavbarProps) => {
                                 <FaHome />
                             </Icon>
                         </NavLink>
-                        <NavLink href="/portfolio">
-                            <CRTText data-text="Portfolio">Portfolio</CRTText>
+                        <NavLink href="/sobre-mi">
+                            <CRTText data-text="Sobre mí">Sobre mí</CRTText>
                             <Icon>
-                                <FaFolder />
+                                <FaUser />
                             </Icon>
                         </NavLink>
                         <NavLink href="/contacto" onClick={handleContactClick}>
@@ -186,16 +186,16 @@ export const Navbar = ({ onContactClick, onHomeClick }: NavbarProps) => {
                                 <FaEnvelope />
                             </Icon>
                         </NavLink>
-                        <NavLink href="/sobre-mi">
-                            <CRTText data-text="Sobre mí">Sobre mí</CRTText>
-                            <Icon>
-                                <FaUser />
-                            </Icon>
-                        </NavLink>
                         <NavLink href="https://github.com/felipebaguena" target="_blank">
                             <CRTText data-text="Github">Github</CRTText>
                             <Icon>
                                 <FaGithub />
+                            </Icon>
+                        </NavLink>
+                        <NavLink href="/portfolio">
+                            <CRTText data-text="Portfolio">Portfolio</CRTText>
+                            <Icon>
+                                <FaFolder />
                             </Icon>
                         </NavLink>
                     </NavLinks>

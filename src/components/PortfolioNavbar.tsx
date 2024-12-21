@@ -90,10 +90,10 @@ export const PortfolioNavbar = () => {
                                     <HiHome />
                                 </Icon>
                             </NavLink>
-                            <NavLink href="/portfolio">
-                                <span>Portfolio</span>
+                            <NavLink href="/sobre-mi">
+                                <span>Sobre mí</span>
                                 <Icon>
-                                    <HiFolder />
+                                    <HiUser />
                                 </Icon>
                             </NavLink>
                             <NavLink href="#" onClick={handleContactClick}>
@@ -102,16 +102,16 @@ export const PortfolioNavbar = () => {
                                     <HiMail />
                                 </Icon>
                             </NavLink>
-                            <NavLink href="/sobre-mi">
-                                <span>Sobre mí</span>
-                                <Icon>
-                                    <HiUser />
-                                </Icon>
-                            </NavLink>
                             <NavLink href="https://github.com/felipebaguena" target="_blank">
                                 <span>Github</span>
                                 <Icon>
                                     <FaGithub />
+                                </Icon>
+                            </NavLink>
+                            <NavLink href="/portfolio">
+                                <span>Portfolio</span>
+                                <Icon>
+                                    <HiFolder />
                                 </Icon>
                             </NavLink>
                         </NavLinks>

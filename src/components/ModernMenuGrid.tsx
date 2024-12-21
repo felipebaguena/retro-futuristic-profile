@@ -71,21 +71,21 @@ export const ModernMenuGrid = () => {
     return (
         <MenuWrapper>
             <MenuContainer>
-                <MenuItem onClick={() => router.push('/portfolio')}>
-                    <FaFolder />
-                    <ItemText>Portfolio</ItemText>
+                <MenuItem onClick={() => router.push('/sobre-mi')}>
+                    <FaUser />
+                    <ItemText>Sobre mí</ItemText>
                 </MenuItem>
                 <MenuItem onClick={handleContactClick}>
                     <FaEnvelope />
                     <ItemText>Contacto</ItemText>
                 </MenuItem>
-                <MenuItem onClick={() => router.push('/sobre-mi')}>
-                    <FaUser />
-                    <ItemText>Sobre mí</ItemText>
-                </MenuItem>
                 <MenuItem onClick={() => window.open('https://github.com/felipebaguena', '_blank')}>
                     <FaGithub />
                     <ItemText>Github</ItemText>
+                </MenuItem>
+                <MenuItem onClick={() => router.push('/portfolio')}>
+                    <FaFolder />
+                    <ItemText>Portfolio</ItemText>
                 </MenuItem>
             </MenuContainer>
             {showContactForm && (

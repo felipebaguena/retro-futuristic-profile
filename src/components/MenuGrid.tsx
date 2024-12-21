@@ -118,21 +118,21 @@ export const MenuGrid = ({
 
     return (
         <MenuContainer $isExiting={isExiting}>
-            <MenuItem $delay={0} onClick={handlePortfolioClick}>
-                <FaFolder />
-                <CRTText data-text="Portfolio">Portfolio</CRTText>
+            <MenuItem $delay={0} onClick={handleSobreMiClick}>
+                <FaUser />
+                <CRTText data-text="Sobre mí">Sobre mí</CRTText>
             </MenuItem>
             <MenuItem $delay={0.4} onClick={onContactClick}>
                 <FaEnvelope />
                 <CRTText data-text="Contacto">Contacto</CRTText>
             </MenuItem>
-            <MenuItem $delay={0.8} onClick={handleSobreMiClick}>
-                <FaUser />
-                <CRTText data-text="Sobre mí">Sobre mí</CRTText>
-            </MenuItem>
-            <MenuItem $delay={1.2} onClick={handleGithubClick}>
+            <MenuItem $delay={0.8} onClick={handleGithubClick}>
                 <FaGithub />
                 <CRTText data-text="Github">Github</CRTText>
+            </MenuItem>
+            <MenuItem $delay={1.2} onClick={handlePortfolioClick}>
+                <FaFolder />
+                <CRTText data-text="Portfolio">Portfolio</CRTText>
             </MenuItem>
         </MenuContainer>
     )
