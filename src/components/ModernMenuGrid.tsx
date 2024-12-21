@@ -36,7 +36,6 @@ const MenuContainer = styled.div`
 const MenuItem = styled.div`
   background: white;
   border: 1px solid #eee;
-  border-radius: 8px;
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -52,7 +51,7 @@ const MenuItem = styled.div`
   }
 
   svg {
-    font-size: 2rem;
+    font-size: 1.2rem;
     color: #333;
   }
 `

@@ -60,7 +60,6 @@ const Overlay = styled.div<{ $isExiting?: boolean }>`
 const FormContainer = styled.div<{ $isExiting?: boolean }>`
   background: white;
   padding: 2rem;
-  border-radius: 4px;
   width: 90%;
   max-width: 500px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -132,7 +131,6 @@ const Label = styled.label`
 const Input = styled.input`
   padding: 0.75rem;
   border: 1px solid #ddd;
-  border-radius: 4px;
   font-size: 1rem;
   font-family: 'Arial', sans-serif;
   
@@ -145,7 +143,6 @@ const Input = styled.input`
 const TextArea = styled.textarea`
   padding: 0.75rem;
   border: 1px solid #ddd;
-  border-radius: 4px;
   font-size: 1rem;
   min-height: 120px;
   resize: vertical;
@@ -163,7 +160,6 @@ const SubmitButton = styled.button`
   border: none;
   padding: 1rem;
   font-size: 1rem;
-  border-radius: 4px;
   cursor: pointer;
   transition: background 0.3s ease;
   
