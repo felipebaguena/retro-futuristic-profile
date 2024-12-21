@@ -75,7 +75,7 @@ const scanline = keyframes`
     bottom: 100%;
   }
   100% {
-    bottom: -20%;
+    bottom: 0%;
   }
 `
 

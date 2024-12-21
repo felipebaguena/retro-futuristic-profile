@@ -21,6 +21,14 @@ import {
   CRTContentContainer
 } from '@/components/styles/CommonElements'
 
+const MenuContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 20rem);
+  width: 100%;
+`
+
 export default function Home() {
   const [lines, setLines] = useState<string[]>([])
   const [showWelcome, setShowWelcome] = useState(false)
@@ -179,14 +187,16 @@ export default function Home() {
                 ))}
                 <Prompt data-text=">">{`> `}</Prompt>
                 {!showContactForm && !isLoadingGithub && showMenu && (
-                  <MenuGrid
-                    onContactClick={handleContactClick}
-                    onGithubClick={handleGithubClick}
-                    onSobreMiClick={handleSobreMiClick}
-                    onPortfolioClick={handlePortfolioClick}
-                    isExiting={menuExiting}
-                    hasAppliedNewDesign={hasAppliedNewDesign}
-                  />
+                  <MenuContainer>
+                    <MenuGrid
+                      onContactClick={handleContactClick}
+                      onGithubClick={handleGithubClick}
+                      onSobreMiClick={handleSobreMiClick}
+                      onPortfolioClick={handlePortfolioClick}
+                      isExiting={menuExiting}
+                      hasAppliedNewDesign={hasAppliedNewDesign}
+                    />
+                  </MenuContainer>
                 )}
                 {showContactForm && (
                   <ContactForm
