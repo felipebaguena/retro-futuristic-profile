@@ -78,6 +78,8 @@ const SectionBlock = styled.div`
   
   &:first-child {
     margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
 
   ${Line} {
@@ -87,6 +89,51 @@ const SectionBlock = styled.div`
       margin-bottom: 1rem;
       color: ${({ theme }) => theme.colors.crtHighlight};
     }
+  }
+`
+
+const StyledTextLineWrapper = styled.div`
+  flex: 1;
+  margin-top: 1rem;
+
+`
+
+const StyledCRTImageContainer = styled(CRTImageContainer)`
+  flex: none !important;
+  width: 230px !important;
+  height: 230px !important;
+  min-width: 230px;
+  min-height: 230px;
+
+    @media (max-width: 980px) {
+    width: 300px !important;
+    height: 300px !important;
+    min-width: 250px;
+    min-height: 250px;
+  }
+
+  @media (max-width: 768px) {
+    width: 250px !important;
+    height: 250px !important;
+    min-width: 200px;
+    min-height: 200px;
+  }
+`
+
+const IntroSection = styled.div`
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  gap: 6rem;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  @media (max-width: 1024px) {
+    gap: 2rem;
   }
 `
 
@@ -139,7 +186,21 @@ export default function SobreMi() {
                                 <CRTProfileSection>
                                     <CRTTextContent>
                                         <SectionBlock>
-                                            <TextLine text={sobreMiTexts.intro} />
+                                            <IntroSection>
+                                                <StyledTextLineWrapper>
+                                                    <TextLine text={sobreMiTexts.intro} />
+                                                </StyledTextLineWrapper>
+                                                <StyledCRTImageContainer>
+                                                    <Image
+                                                        src="/images/fotocv1.jpg"
+                                                        alt="Felipe Báguena"
+                                                        fill
+                                                        style={{ objectFit: 'cover' }}
+                                                        sizes="300px"
+                                                        priority
+                                                    />
+                                                </StyledCRTImageContainer>
+                                            </IntroSection>
                                         </SectionBlock>
 
                                         <SectionBlock>
@@ -157,16 +218,7 @@ export default function SobreMi() {
                                             <TextLine text={sobreMiTexts.interesesContent} />
                                         </SectionBlock>
                                     </CRTTextContent>
-                                    <CRTImageContainer>
-                                        <Image
-                                            src="/images/fotocv1.jpg"
-                                            alt="Felipe Báguena"
-                                            fill
-                                            style={{ objectFit: 'cover' }}
-                                            sizes="300px"
-                                            priority
-                                        />
-                                    </CRTImageContainer>
+
                                 </CRTProfileSection>
                             </Terminal>
                         </CRTContentContainer>
