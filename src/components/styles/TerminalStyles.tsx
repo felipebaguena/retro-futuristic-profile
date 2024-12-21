@@ -8,7 +8,7 @@ export const Terminal = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   padding: 6rem 2rem 2rem 2rem;
-  min-height: 100%;
+  min-height: calc(100vh - 10rem);
   font-size: 1.2rem;
   position: relative;
   transform: perspective(1000px) rotateX(4deg) rotateY(0deg);
@@ -25,6 +25,14 @@ export const Terminal = styled.div`
     transform: rotateX(-8deg);
     pointer-events: none;
     z-index: -1;
+  }
+
+  @media (max-width: 1250px) {
+    transform: none;
+    
+    &::before {
+      display: none;
+    }
   }
 `
 

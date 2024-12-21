@@ -15,6 +15,8 @@ import {
 } from '@/components/styles/CommonElements'
 import Image from 'next/image'
 import { CRTImageContainer } from '@/components/styles/CRTImage'
+import { TextLine } from '@/components/TextLine'
+import { sobreMiTexts } from '@/constants/sobreMiTexts'
 
 const CRTProfileSection = styled.div`
   display: flex;
@@ -137,39 +139,22 @@ export default function SobreMi() {
                                 <CRTProfileSection>
                                     <CRTTextContent>
                                         <SectionBlock>
-                                            <Line data-text="#### Experiencia ####">
-                                                #### Experiencia ####
-                                            </Line>
-                                            <Line data-text="Desarrollador web con experiencia en React, Next.js y TypeScript.">
-                                                Desarrollador web con experiencia en React, Next.js y TypeScript.
-                                            </Line>
+                                            <TextLine text={sobreMiTexts.intro} />
                                         </SectionBlock>
 
                                         <SectionBlock>
-                                            <Line data-text="#### Formación ####">
-                                                #### Formación ####
-                                            </Line>
-                                            <Line data-text="Bootcamp Full Stack Developer">
-                                                Bootcamp Full Stack Developer
-                                            </Line>
+                                            <TextLine text={sobreMiTexts.formacionTitle} />
+                                            <TextLine text={sobreMiTexts.formacionContent} />
                                         </SectionBlock>
 
                                         <SectionBlock>
-                                            <Line data-text="#### Habilidades ####">
-                                                #### Habilidades ####
-                                            </Line>
-                                            <Line data-text="JavaScript, React, Node.js, SQL, MongoDB, Git">
-                                                JavaScript, React, Node.js, SQL, MongoDB, Git
-                                            </Line>
+                                            <TextLine text={sobreMiTexts.habilidadesTitle} />
+                                            <TextLine text={sobreMiTexts.habilidadesContent} />
                                         </SectionBlock>
 
                                         <SectionBlock>
-                                            <Line data-text="#### Intereses ####">
-                                                #### Intereses ####
-                                            </Line>
-                                            <Line data-text="Desarrollo web, nuevas tecnologías, música">
-                                                Desarrollo web, nuevas tecnologías, música
-                                            </Line>
+                                            <TextLine text={sobreMiTexts.interesesTitle} />
+                                            <TextLine text={sobreMiTexts.interesesContent} />
                                         </SectionBlock>
                                     </CRTTextContent>
                                     <CRTImageContainer>
