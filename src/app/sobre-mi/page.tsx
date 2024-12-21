@@ -108,7 +108,11 @@ const SectionBlock = styled.div<{ delay: number }>`
 
 const StyledTextLineWrapper = styled.div`
   flex: 1;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
+
+  @media (max-width: 768px) {
+    margin-top: 0;
+  }
 
 `
 
