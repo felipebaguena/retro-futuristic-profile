@@ -22,7 +22,6 @@ const CRTProfileSection = styled.div`
   display: flex;
   gap: 2rem;
   align-items: flex-start;
-  margin: 1rem 0;
   width: 100%;
 
   @media (max-width: 768px) {
@@ -91,9 +90,9 @@ const SectionBlock = styled.div<{ delay: number }>`
   animation-delay: ${({ delay }) => delay}ms;
   
   &:first-child {
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0;
     padding-bottom: 0;
+    padding-top: 0;
   }
 
   ${Line} {
