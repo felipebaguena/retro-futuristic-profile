@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 export const ModernPageContainer = styled.div`
   background: white;
-  padding-top: 80px;
+  padding-top: 6rem;
   display: flex;
   justify-content: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 6rem);
 `;
 
 export const ModernContentContainer = styled.div`

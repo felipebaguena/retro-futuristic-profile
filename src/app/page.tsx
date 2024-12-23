@@ -16,10 +16,9 @@ import { ModernMenuGrid } from '@/components/ModernMenuGrid'
 import {
   ModernPageContainer,
   ModernContentContainer,
-  ModernTitle,
-  ModernText,
   CRTContentContainer
 } from '@/components/styles/CommonElements'
+import { Banner } from '@/components/Banner'
 
 const MenuContainer = styled.div`
   display: flex;
@@ -27,6 +26,68 @@ const MenuContainer = styled.div`
   justify-content: center;
   min-height: calc(100vh - 26rem);
   width: 100%;
+`
+
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #432B4F;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+`
+
+const TitleInner = styled.div`
+  max-width: 1200px;
+  width: 100%;
+  padding: 3rem 1.2rem;
+  box-sizing: border-box;
+
+  @media (max-width: 578px) {
+    padding: 2rem 1.2rem;
+  }
+`
+
+const Title = styled.div`
+  font-family: 'Arial', sans-serif;
+  color: #fff;
+  text-align: left;
+  line-height: 1.2;
+  text-transform: uppercase;
+
+  h1 {
+    font-size: 3.6rem;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+
+    @media (max-width: 578px) {
+      font-size: 3.2rem;
+    }
+  }
+
+  h2 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+
+    @media (max-width: 578px) {
+      font-size: 3.1rem;
+    }
+  }
+
+  p {
+    font-size: 2rem;
+    margin: 1rem 0;
+    opacity: 0.9;
+
+    @media (max-width: 578px) {
+      font-size: 1.6rem;
+      margin: 0.5rem 0;
+    }
+  }
 `
 
 export default function Home() {
@@ -177,13 +238,20 @@ export default function Home() {
   if (hasAppliedNewDesign) {
     return (
       <>
-        <PortfolioNavbar />
+        <PortfolioNavbar theme="eva" />
         <ModernPageContainer>
           <ModernContentContainer>
-            <ModernTitle>Home</ModernTitle>
-            <ModernText>
-              Texto placeholder para la sección Home...
-            </ModernText>
+            <TitleContainer>
+              <TitleInner>
+                <Title>
+                  <h1>Hola,</h1>
+                  <h2>Soy Felipe Báguena,</h2>
+                  <p>desarrollador web.</p>
+                  <p>Bienvenido.</p>
+                </Title>
+              </TitleInner>
+            </TitleContainer>
+            <Banner />
             <ModernMenuGrid />
           </ModernContentContainer>
         </ModernPageContainer>

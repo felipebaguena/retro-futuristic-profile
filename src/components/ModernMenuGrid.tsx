@@ -1,7 +1,6 @@
 'use client'
 import { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
-import { FaUser, FaEnvelope, FaGithub, FaFolder } from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
 import { useContactForm } from '@/hooks/useContactForm'
 import { ModernContactForm } from './ModernContactForm'
@@ -31,7 +30,6 @@ const MenuContainer = styled.div`
   grid-template-rows: repeat(2, 1fr);
   width: 100%;
   height: 20rem;
-  margin: 1rem;
   animation: ${fadeIn} 0.6s ease-out forwards;
 `
 
@@ -104,10 +102,8 @@ const MenuItem = styled.div<MenuItemProps>`
   background: white;
   border: 1px solid #eee;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: 'Arial', sans-serif;
@@ -151,14 +147,13 @@ const MenuItem = styled.div<MenuItemProps>`
       width: ${dimensions.width};
       height: ${dimensions.height};
       
-      svg {
-        font-size: ${shouldShrink ? '0.9rem' : '1.2rem'};
-        transition: font-size 0.3s ease;
-      }
-      
       span {
-        font-size: ${shouldShrink ? '0.7rem' : '0.9rem'};
+        font-size: ${shouldShrink ? '1rem' : '1.4rem'};
         transition: font-size 0.3s ease;
+
+        @media (max-width: 578px) {
+          font-size: ${shouldShrink ? '0.8rem' : '1.1rem'};
+        }
       }
     `
     }}
@@ -171,7 +166,12 @@ const MenuItem = styled.div<MenuItemProps>`
 const ItemText = styled.span`
   color: #333;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  font-weight: 500;
+
+  @media (max-width: 578px) {
+    letter-spacing: 0.5px;
+  }
 `
 
 export const ModernMenuGrid = () => {
@@ -189,7 +189,6 @@ export const ModernMenuGrid = () => {
                     onMouseEnter={() => setHoveredItem('topLeft')}
                     onMouseLeave={() => setHoveredItem(null)}
                 >
-                    <FaUser />
                     <ItemText>Sobre mí</ItemText>
                 </MenuItem>
                 <MenuItem
@@ -199,7 +198,6 @@ export const ModernMenuGrid = () => {
                     onMouseEnter={() => setHoveredItem('topRight')}
                     onMouseLeave={() => setHoveredItem(null)}
                 >
-                    <FaEnvelope />
                     <ItemText>Contacto</ItemText>
                 </MenuItem>
                 <MenuItem
@@ -209,7 +207,6 @@ export const ModernMenuGrid = () => {
                     onMouseEnter={() => setHoveredItem('bottomLeft')}
                     onMouseLeave={() => setHoveredItem(null)}
                 >
-                    <FaGithub />
                     <ItemText>Github</ItemText>
                 </MenuItem>
                 <MenuItem
@@ -219,7 +216,6 @@ export const ModernMenuGrid = () => {
                     onMouseEnter={() => setHoveredItem('bottomRight')}
                     onMouseLeave={() => setHoveredItem(null)}
                 >
-                    <FaFolder />
                     <ItemText>Portfolio</ItemText>
                 </MenuItem>
             </MenuContainer>

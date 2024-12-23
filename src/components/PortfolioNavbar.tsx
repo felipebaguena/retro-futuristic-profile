@@ -7,14 +7,19 @@ import { ModernContactForm } from './ModernContactForm'
 import { HiHome, HiFolder, HiMail, HiUser } from 'react-icons/hi'
 import { FaGithub } from 'react-icons/fa'
 
-const NavContainer = styled.div`
+interface NavContainerProps {
+    $theme?: 'default' | 'eva'
+}
+
+const NavContainer = styled.div<NavContainerProps>`
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 10;
-  background: white;
+  background: ${props => props.$theme === 'eva' ? '#432B4F' : 'white'};
   padding: 2.5rem 0;
+  transition: background-color 0.3s ease;
 `
 
 const ContentContainer = styled.div`
@@ -41,13 +46,13 @@ const NavLinks = styled.div`
   }
 `
 
-const NavLink = styled(Link)`
+const NavLink = styled(Link) <{ $theme?: 'default' | 'eva' }>`
   text-decoration: none;
-  color: #000;
+  color: ${props => props.$theme === 'eva' ? '#fff' : '#000'};
   font-size: 0.9rem;
   text-transform: uppercase;
   opacity: 0.7;
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
   font-family: 'Arial', sans-serif;
   letter-spacing: 1px;
   display: flex;
@@ -74,41 +79,45 @@ const Icon = styled.div`
   }
 `
 
-export const PortfolioNavbar = () => {
+interface PortfolioNavbarProps {
+    theme?: 'default' | 'eva'
+}
+
+export const PortfolioNavbar = ({ theme = 'default' }: PortfolioNavbarProps) => {
     const router = useRouter()
     const { showContactForm, contactFormExiting, handleContactClick, handleCloseContact } = useContactForm()
 
     return (
         <>
-            <NavContainer>
+            <NavContainer $theme={theme}>
                 <ContentContainer>
                     <Nav>
                         <NavLinks>
-                            <NavLink href="/">
+                            <NavLink href="/" $theme={theme}>
                                 <span>Inicio</span>
                                 <Icon>
                                     <HiHome />
                                 </Icon>
                             </NavLink>
-                            <NavLink href="/sobre-mi">
+                            <NavLink href="/sobre-mi" $theme={theme}>
                                 <span>Sobre mí</span>
                                 <Icon>
                                     <HiUser />
                                 </Icon>
                             </NavLink>
-                            <NavLink href="#" onClick={handleContactClick}>
+                            <NavLink href="#" onClick={handleContactClick} $theme={theme}>
                                 <span>Contacto</span>
                                 <Icon>
                                     <HiMail />
                                 </Icon>
                             </NavLink>
-                            <NavLink href="https://github.com/felipebaguena" target="_blank">
+                            <NavLink href="https://github.com/felipebaguena" target="_blank" $theme={theme}>
                                 <span>Github</span>
                                 <Icon>
                                     <FaGithub />
                                 </Icon>
                             </NavLink>
-                            <NavLink href="/portfolio">
+                            <NavLink href="/portfolio" $theme={theme}>
                                 <span>Portfolio</span>
                                 <Icon>
                                     <HiFolder />
