@@ -29,8 +29,9 @@ const MenuContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  width: 16.75rem;
-  height: 16.75rem;
+  width: 100%;
+  height: 20rem;
+  margin: 1rem;
   animation: ${fadeIn} 0.6s ease-out forwards;
 `
 
@@ -40,9 +41,9 @@ interface MenuItemProps {
 }
 
 const getItemDimensions = (position: string, hoveredItem: string | null) => {
-    const baseSize = '8.375rem'
-    const expandedSize = '10.47rem'
-    const shrunkSize = '6.28rem'
+    const baseSize = '100%'
+    const expandedSize = '125%'
+    const shrunkSize = '75%'
 
     if (!hoveredItem) return { width: baseSize, height: baseSize }
 
@@ -111,6 +112,37 @@ const MenuItem = styled.div<MenuItemProps>`
   transition: all 0.3s ease;
   font-family: 'Arial', sans-serif;
   overflow: hidden;
+  position: relative;
+  ${({ $position }) => {
+        switch ($position) {
+            case 'topLeft':
+                return `
+          grid-area: 1 / 1 / 2 / 2;
+          justify-self: start;
+          align-self: start;
+        `
+            case 'topRight':
+                return `
+          grid-area: 1 / 2 / 2 / 3;
+          justify-self: end;
+          align-self: start;
+        `
+            case 'bottomLeft':
+                return `
+          grid-area: 2 / 1 / 3 / 2;
+          justify-self: start;
+          align-self: end;
+        `
+            case 'bottomRight':
+                return `
+          grid-area: 2 / 2 / 3 / 3;
+          justify-self: end;
+          align-self: end;
+        `
+            default:
+                return ''
+        }
+    }}
   ${({ $position, $hoveredItem }) => {
         const dimensions = getItemDimensions($position, $hoveredItem)
         const isHovered = $hoveredItem === $position
