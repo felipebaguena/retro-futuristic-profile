@@ -15,11 +15,11 @@ import {
 import { PortfolioView } from '@/components/PortfolioView'
 
 const TransitionContainer = styled.div<{ $isWhite: boolean }>`
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
   background: ${props => props.$isWhite ? 'white' : 'transparent'};
   transition: background-color 0.5s ease;
   suppressHydrationWarning: true;

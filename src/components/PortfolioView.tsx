@@ -72,7 +72,67 @@ export const projects = [
         description: "Portfolio con efectos CRT y diseño moderno, construido con Next.js y TypeScript. Incluye transiciones entre estilos retro y modernos, efectos de glitch y animaciones personalizadas.",
         image: "/portfolio-images/personal-website.png",
         tech: ["Next.js", "TypeScript", "Styled Components", "React"],
-        link: "https://github.com/felipebaguena/retro-futuristic-profile"
+        repository: {
+            main: "https://github.com/felipebaguena/retro-futuristic-profile"
+        },
+        details: {
+            features: [
+                "Diseño dual con modo retro CRT y moderno",
+                "Transiciones y animaciones personalizadas",
+                "Efectos de glitch y scanlines",
+                "Diseño responsive"
+            ]
+        }
+    },
+    {
+        id: "grim-reckoning",
+        title: "Grim Reckoning",
+        description: "Videojuego web RPG desarrollado en React con estética retro inspirada en los clásicos de SEGA de los 90. Incluye sistema de combate por turnos, progresión de personajes, inventario de objetos y narrativa ramificada.",
+        image: "/portfolio-images/grim-reckoning.png",
+        tech: ["React", "JavaScript", "PHP", "Laravel", "Bootstrap", "CSS3", "HTML5"],
+        repository: {
+            frontend: "https://github.com/felipebaguena/fbp_font_proyecto_final_gh_2023",
+            backend: "https://github.com/felipebaguena/fbp_bbdd_proyecto_final_gh_2023"
+        },
+        details: {
+            features: [
+                "Sistema de combate por turnos con más de 100 enemigos únicos",
+                "Progresión de personajes con niveles y equipamiento",
+                "Sistema de diálogos con decisiones que afectan la narrativa",
+                "Diseño responsive para móviles y tablets",
+                "Estética retro con efectos CRT y scanlines",
+                "Backend en PHP Laravel con sistema de usuarios y rankings"
+            ],
+            stack: {
+                frontend: ["React", "JavaScript", "Bootstrap", "CSS3", "HTML5"],
+                backend: ["PHP", "Laravel", "MySQL"]
+            }
+        }
+    },
+    {
+        id: "mvc-app",
+        title: "My Videogame Collection",
+        description: "Aplicación web fullstack para gestión de colecciones de videojuegos con funcionalidades sociales, noticias retro y sistema de chat en tiempo real.",
+        image: "/portfolio-images/mvc.png",
+        tech: ["Next.js", "TypeScript", "Styled Components", "Node.js", "NestJS"],
+        repository: {
+            frontend: "https://github.com/felipebaguena/appCollectionFront",
+            backend: "https://github.com/felipebaguena/appCollectionBack"
+        },
+        details: {
+            features: [
+                "Gestión integral de colecciones con datatables personalizadas",
+                "Sistema de noticias sobre videojuegos retro",
+                "Funcionalidades sociales con sistema de amigos",
+                "Chat en tiempo real",
+                "Backend robusto con NestJS y TypeScript",
+                "Diseño moderno y responsive con componentes custom"
+            ],
+            stack: {
+                frontend: ["Next.js", "TypeScript", "Styled Components", "React"],
+                backend: ["NestJS", "Node.js", "TypeScript"]
+            }
+        }
     }
 ]
 

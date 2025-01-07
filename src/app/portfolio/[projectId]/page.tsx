@@ -83,6 +83,12 @@ const GithubLink = styled.a`
   }
 `
 
+const GithubLinks = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+`
+
 export default function ProjectDetail() {
     const { projectId } = useParams()
     const project = projects.find(p => p.id === projectId)
@@ -120,10 +126,25 @@ export default function ProjectDetail() {
                             {project.description}
                         </ProjectDescription>
 
-                        <GithubLink href={project.link} target="_blank" rel="noopener noreferrer">
-                            <FaGithub size={20} />
-                            Ver en GitHub
-                        </GithubLink>
+                        <GithubLinks>
+                            {project.repository.main ? (
+                                <GithubLink href={project.repository.main} target="_blank" rel="noopener noreferrer">
+                                    <FaGithub size={20} />
+                                    Ver en GitHub
+                                </GithubLink>
+                            ) : (
+                                <>
+                                    <GithubLink href={project.repository.frontend} target="_blank" rel="noopener noreferrer">
+                                        <FaGithub size={20} />
+                                        Ver Frontend en GitHub
+                                    </GithubLink>
+                                    <GithubLink href={project.repository.backend} target="_blank" rel="noopener noreferrer">
+                                        <FaGithub size={20} />
+                                        Ver Backend en GitHub
+                                    </GithubLink>
+                                </>
+                            )}
+                        </GithubLinks>
                     </ProjectContainer>
                 </ModernContentContainer>
             </ModernPageContainer>
