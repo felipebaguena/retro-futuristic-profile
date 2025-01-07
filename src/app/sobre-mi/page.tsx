@@ -154,6 +154,75 @@ const IntroSection = styled.div`
   }
 `
 
+const ModernLayout = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+`
+
+const HeroSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6rem;
+  margin-bottom: 3rem;
+
+  @media (max-width: 968px) {
+    flex-direction: column;
+    gap: 3rem;
+    text-align: center;
+  }
+`
+
+const ModernImageContainer = styled.div`
+  width: 200px;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  
+  @media (max-width: 968px) {
+    width: 400px;
+    height: 400px;
+  }
+
+    @media (max-width: 468px) {
+        width: 300px;
+        height: 300px;
+}
+`
+
+const ContentSection = styled.div`
+  flex: 1;
+`
+
+const ModernHeading = styled.h1`
+  font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #2d3436;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+`
+
+const ModernSubheading = styled.h2`
+  font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #2d3436;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 2rem 0 1.5rem;
+  letter-spacing: -0.01em;
+`
+
+const ModernParagraph = styled.p`
+  font-family: 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #636e72;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+`
+
 export default function SobreMi() {
     const { setHasSeenBootSequence, hasAppliedNewDesign } = useBootSequence()
 
@@ -166,26 +235,32 @@ export default function SobreMi() {
             <>
                 <PortfolioNavbar />
                 <ModernPageContainer>
-                    <ModernContentContainer>
-                        <ModernTitle>Sobre mí</ModernTitle>
-                        <CRTProfileSection>
-                            <CRTTextContent>
-                                <ModernText>
-                                    Texto placeholder para la sección Sobre mí...
-                                </ModernText>
-                            </CRTTextContent>
-                            <ImageContainer>
+                    <ModernLayout>
+                        <HeroSection>
+                            <ModernImageContainer>
                                 <Image
                                     src="/images/fotocv1.jpg"
                                     alt="Felipe Báguena"
                                     fill
                                     style={{ objectFit: 'cover' }}
-                                    sizes="(max-width: 768px) 250px, 300px"
+                                    sizes="(max-width: 968px) 300px, 400px"
                                     priority
                                 />
-                            </ImageContainer>
-                        </CRTProfileSection>
-                    </ModernContentContainer>
+                            </ModernImageContainer>
+                            <ContentSection>
+                                <ModernParagraph>{sobreMiTexts.intro}</ModernParagraph>
+                            </ContentSection>
+                        </HeroSection>
+
+                        <ModernSubheading>Formación</ModernSubheading>
+                        <ModernParagraph>{sobreMiTexts.formacionContent}</ModernParagraph>
+
+                        <ModernSubheading>Habilidades</ModernSubheading>
+                        <ModernParagraph>{sobreMiTexts.habilidadesContent}</ModernParagraph>
+
+                        <ModernSubheading>Intereses</ModernSubheading>
+                        <ModernParagraph>{sobreMiTexts.interesesContent}</ModernParagraph>
+                    </ModernLayout>
                 </ModernPageContainer>
             </>
         )
