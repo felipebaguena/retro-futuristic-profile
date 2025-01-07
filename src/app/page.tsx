@@ -1,5 +1,5 @@
 'use client'
-import styled from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 import { useEffect, useState, useRef } from 'react'
 import { CRTContainer, Scanline, Screen, CRTOuter } from '@/components/styles/CRTEffect'
 import { Terminal, Line, Prompt } from '@/components/styles/TerminalStyles'
@@ -80,6 +80,144 @@ const Title = styled.div`
   }
 `
 
+const VHSContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+`
+
+const codeChars = [
+  '{', '}', '[', ']', '<', '>', '/', '\\', '=',
+  '+', '-', '*', '&', '|', ';', '$', '#', '@',
+  '(', ')', '_', ':', '"', "'", '`', '^', '%',
+  'div', '/', '<', '>'
+]
+
+const VHSTitle = styled(Title)`
+  position: relative;
+  text-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.6);
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  h1, h2, p {
+    position: relative;
+    animation: textWaver 3s infinite;
+    color: rgba(255, 255, 255, 0.9);
+
+    &::before {
+      content: attr(data-glitch);
+      position: absolute;
+      left: -2px;
+      text-shadow: 2px 0 #ff0000;
+      clip: rect(44px, 450px, 56px, 0);
+      animation: glitch 3s infinite linear alternate-reverse;
+    }
+
+    &::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 2px;
+      text-shadow: -2px 0 #00ff00;
+      clip: rect(44px, 450px, 56px, 0);
+      animation: glitch 2s infinite linear alternate-reverse;
+      opacity: 0.5;
+    }
+  }
+`
+
+const GlobalStyle = createGlobalStyle`
+  @keyframes textWaver {
+    0%, 100% { transform: translateX(0) skew(0deg); }
+    30% { transform: translateX(-2px) skew(-0.1deg); }
+    60% { transform: translateX(2px) skew(0.1deg); }
+  }
+
+  @keyframes glitch {
+    0% { clip: rect(31px, 9999px, 94px, 0); }
+    20% { clip: rect(62px, 9999px, 42px, 0); }
+    40% { clip: rect(16px, 9999px, 78px, 0); }
+    60% { clip: rect(94px, 9999px, 38px, 0); }
+    80% { clip: rect(58px, 9999px, 71px, 0); }
+    100% { clip: rect(89px, 9999px, 25px, 0); }
+  }
+`
+
+const codeSnippets = [
+  [
+    'const executeBootSequence = async () => {',
+    '  await typeText("Iniciando sistema...");',
+    '  await wait(1000);',
+    '  await typeText("Cargando módulos...");',
+    '}'
+  ],
+  [
+    'useEffect(() => {',
+    '  const glitchInterval = setInterval(() => {',
+    '    if (Math.random() < 0.35) {',
+    '      setGlitchText(prev => ({',
+    '        ...prev,',
+    '        h1: glitchString(prev.h1)',
+    '      }))',
+    '    }',
+    '  }, 1000)',
+    '}, [])'
+  ],
+  [
+    'const VHSTitle = styled(Title)`',
+    '  position: relative;',
+    '  text-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.6);',
+    '  animation: textWaver 3s infinite;',
+    '`'
+  ],
+  [
+    'const handlePortfolioClick = async () => {',
+    '  setIsLoadingPortfolio(true);',
+    '  const success = await executePortfolioSequence();',
+    '  if (success) router.push("/portfolio");',
+    '}'
+  ],
+  [
+    '@keyframes glitch {',
+    '  0% { clip: rect(31px, 9999px, 94px, 0); }',
+    '  20% { clip: rect(62px, 9999px, 42px, 0); }',
+    '  100% { clip: rect(89px, 9999px, 25px, 0); }',
+    '}'
+  ],
+  [
+    'const handleGithubClick = () => {',
+    '  setMenuExiting(true);',
+    '  setTimeout(() => {',
+    '    setIsLoadingGithub(true);',
+    '  }, 500);',
+    '}'
+  ],
+  [
+    'const ModernContentContainer = styled.div`',
+    '  display: flex;',
+    '  align-items: center;',
+    '  justify-content: center;',
+    '  width: 100%;',
+    '`'
+  ]
+]
+
+const FloatingCode = styled.div<{ top: number, left: number, opacity: number }>`
+  position: absolute;
+  top: ${props => props.top}%;
+  left: ${props => props.left}%;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, ${props => props.opacity});
+  pointer-events: none;
+  transition: opacity 0.5s ease-in-out;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+  white-space: pre;
+  line-height: 1.2;
+`
+
 export default function Home() {
   const [lines, setLines] = useState<string[]>([])
   const [showWelcome, setShowWelcome] = useState(false)
@@ -96,6 +234,20 @@ export default function Home() {
   const [isLoadingPortfolio, setIsLoadingPortfolio] = useState(false)
   const router = useRouter()
   const [welcomeLines, setWelcomeLines] = useState<string[]>([])
+  const [glitchText, setGlitchText] = useState({
+    h1: "Hola,",
+    h2: "Soy Felipe Báguena,",
+    p1: "desarrollador web.",
+    p2: "Bienvenido."
+  })
+  const [floatingSnippets, setFloatingSnippets] = useState<Array<{
+    id: number,
+    lines: string[],
+    top: number,
+    left: number,
+    opacity: number,
+    visibleLines: number
+  }>>([])
 
   const executeWelcomeSequence = async () => {
     const messages = [
@@ -153,6 +305,81 @@ export default function Home() {
         abortControllerRef.current.abort()
       }
     }
+  }, [])
+
+  useEffect(() => {
+    const glitchInterval = setInterval(() => {
+      if (Math.random() < 0.35) {
+        setGlitchText(prev => {
+          const glitchString = (str: string) => {
+            const chars = str.split('')
+            const numReplacements = Math.floor(str.length * 0.1)
+            for (let i = 0; i < numReplacements; i++) {
+              const randomIndex = Math.floor(Math.random() * chars.length)
+              chars[randomIndex] = codeChars[Math.floor(Math.random() * codeChars.length)]
+            }
+            return chars.join('')
+          }
+
+          return {
+            h1: glitchString("Hola,"),
+            h2: glitchString("Soy Felipe Báguena,"),
+            p1: glitchString("desarrollador web."),
+            p2: glitchString("Bienvenido.")
+          }
+        })
+
+        setTimeout(() => {
+          setGlitchText({
+            h1: "Hola,",
+            h2: "Soy Felipe Báguena,",
+            p1: "desarrollador web.",
+            p2: "Bienvenido."
+          })
+        }, 400)
+      }
+    }, 1000)
+
+    return () => clearInterval(glitchInterval)
+  }, [])
+
+  useEffect(() => {
+    let snippetId = 0
+    const addSnippet = () => {
+      if (Math.random() < 0.35) {
+        const snippet = codeSnippets[Math.floor(Math.random() * codeSnippets.length)]
+        const newSnippet = {
+          id: snippetId++,
+          lines: snippet,
+          top: Math.random() * 80,
+          left: Math.random() * 80,
+          opacity: 0.3 + Math.random() * 0.4,
+          visibleLines: 0
+        }
+
+        setFloatingSnippets(prev => [...prev, newSnippet])
+
+        const showLines = setInterval(() => {
+          setFloatingSnippets(prev =>
+            prev.map(s =>
+              s.id === newSnippet.id && s.visibleLines < s.lines.length
+                ? { ...s, visibleLines: s.visibleLines + 1 }
+                : s
+            )
+          )
+        }, 80)
+
+        setTimeout(() => {
+          clearInterval(showLines)
+          setTimeout(() => {
+            setFloatingSnippets(prev => prev.filter(s => s.id !== newSnippet.id))
+          }, 1500)
+        }, snippet.length * 80 + 1500)
+      }
+    }
+
+    const interval = setInterval(addSnippet, 1000)
+    return () => clearInterval(interval)
   }, [])
 
   const handleClick = () => {
@@ -228,17 +455,30 @@ export default function Home() {
   if (hasAppliedNewDesign) {
     return (
       <>
+        <GlobalStyle />
         <PortfolioNavbar theme="eva" />
         <ModernPageContainer>
           <TitleContainer>
-            <ModernContentContainer>
-              <Title>
-                <h1>Hola,</h1>
-                <h2>Soy Felipe Báguena,</h2>
-                <p>desarrollador web.</p>
-                <p>Bienvenido.</p>
-              </Title>
-            </ModernContentContainer>
+            <VHSContainer>
+              {floatingSnippets.map(snippet => (
+                <FloatingCode
+                  key={snippet.id}
+                  top={snippet.top}
+                  left={snippet.left}
+                  opacity={snippet.opacity}
+                >
+                  {snippet.lines.slice(0, snippet.visibleLines).join('\n')}
+                </FloatingCode>
+              ))}
+              <ModernContentContainer>
+                <VHSTitle>
+                  <h1 data-text="Hola," data-glitch={glitchText.h1}>{glitchText.h1}</h1>
+                  <h2 data-text="Soy Felipe Báguena," data-glitch={glitchText.h2}>{glitchText.h2}</h2>
+                  <p data-text="desarrollador web." data-glitch={glitchText.p1}>{glitchText.p1}</p>
+                  <p data-text="Bienvenido." data-glitch={glitchText.p2}>{glitchText.p2}</p>
+                </VHSTitle>
+              </ModernContentContainer>
+            </VHSContainer>
           </TitleContainer>
         </ModernPageContainer>
       </>

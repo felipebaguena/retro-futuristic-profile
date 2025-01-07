@@ -9,7 +9,6 @@ export const ModernPageContainer = styled.div`
 
 export const ModernContentContainer = styled.div`
   max-width: 1200px;
-  margin: 0 auto;
   width: 100%;
   color: black;
   font-family: "Arial", sans-serif;
