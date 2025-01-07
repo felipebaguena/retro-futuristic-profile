@@ -10,9 +10,9 @@ import {
     ModernPageContainer,
     ModernContentContainer,
     ModernTitle,
-    ModernText,
     CRTContentContainer
 } from '@/components/styles/CommonElements'
+import { PortfolioView } from '@/components/PortfolioView'
 
 const TransitionContainer = styled.div<{ $isWhite: boolean }>`
   position: fixed;
@@ -97,9 +97,7 @@ export default function Portfolio() {
                     <ModernPageContainer>
                         <ModernContentContainer>
                             <ModernTitle>Portfolio</ModernTitle>
-                            <ModernText>
-                                Texto placeholder para la sección Portfolio...
-                            </ModernText>
+                            <PortfolioView />
                         </ModernContentContainer>
                     </ModernPageContainer>
                 </>
