@@ -12,13 +12,11 @@ import { executeGithubSequence } from '@/components/GithubSequence'
 import { useBootSequence } from '@/context/BootSequenceContext'
 import { executePortfolioSequence } from '@/components/PortfolioSequence'
 import { useRouter } from 'next/navigation'
-import { ModernMenuGrid } from '@/components/ModernMenuGrid'
 import {
   ModernPageContainer,
   ModernContentContainer,
   CRTContentContainer
 } from '@/components/styles/CommonElements'
-import { Banner } from '@/components/Banner'
 
 const MenuContainer = styled.div`
   display: flex;
@@ -36,17 +34,8 @@ const TitleContainer = styled.div`
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   margin-right: calc(-50vw + 50%);
-`
-
-const TitleInner = styled.div`
-  max-width: 1200px;
-  width: 100%;
-  padding: 3rem 1.2rem;
-  box-sizing: border-box;
-
-  @media (max-width: 578px) {
-    padding: 2rem 1.2rem;
-  }
+  min-height: calc(100vh - 4rem);
+  margin-top: 4rem;
 `
 
 const Title = styled.div`
@@ -55,6 +44,7 @@ const Title = styled.div`
   text-align: left;
   line-height: 1.2;
   text-transform: uppercase;
+  padding: 6rem 0;
 
   h1 {
     font-size: 3.6rem;
@@ -240,20 +230,16 @@ export default function Home() {
       <>
         <PortfolioNavbar theme="eva" />
         <ModernPageContainer>
-          <ModernContentContainer>
-            <TitleContainer>
-              <TitleInner>
-                <Title>
-                  <h1>Hola,</h1>
-                  <h2>Soy Felipe Báguena,</h2>
-                  <p>desarrollador web.</p>
-                  <p>Bienvenido.</p>
-                </Title>
-              </TitleInner>
-            </TitleContainer>
-            <Banner />
-            <ModernMenuGrid />
-          </ModernContentContainer>
+          <TitleContainer>
+            <ModernContentContainer>
+              <Title>
+                <h1>Hola,</h1>
+                <h2>Soy Felipe Báguena,</h2>
+                <p>desarrollador web.</p>
+                <p>Bienvenido.</p>
+              </Title>
+            </ModernContentContainer>
+          </TitleContainer>
         </ModernPageContainer>
       </>
     )

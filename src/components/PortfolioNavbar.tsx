@@ -18,7 +18,9 @@ const NavContainer = styled.div<NavContainerProps>`
   width: 100%;
   z-index: 10;
   background: ${props => props.$theme === 'eva' ? '#432B4F' : 'white'};
-  padding: 2.5rem 0;
+  height: 4rem;
+  display: flex;
+  align-items: center;
   transition: background-color 0.3s ease;
 `
 
