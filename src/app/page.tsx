@@ -226,17 +226,58 @@ const FloatingCode = styled.div<{ top: number, left: number, opacity: number }>`
   line-height: 1.2;
 `
 
-const NoiseArtifact = styled.div<{ top: number; left: number; width: number; opacity: number }>`
+const NoiseArtifact = styled.div<{
+  top: number;
+  left: number;
+  width: number;
+  opacity: number;
+  type: 'line' | 'block' | 'wave' | 'glitch';
+}>`
   position: absolute;
   top: ${props => props.top}%;
   left: ${props => props.left}%;
-  width: ${props => props.width}px;
-  height: 1px;
-  background: rgba(255, 255, 255, ${props => props.opacity});
-  box-shadow: 0 0 2px rgba(255, 255, 255, ${props => props.opacity});
-  transform: rotate(${() => Math.random() * 360}deg);
   pointer-events: none;
-`
+  
+  ${props => {
+    switch (props.type) {
+      case 'line':
+        return `
+          width: ${props.width}px;
+          height: 1px;
+          background: rgba(255, 255, 255, ${props.opacity});
+          box-shadow: 0 0 2px rgba(255, 255, 255, ${props.opacity});
+          transform: rotate(${Math.random() * 360}deg);
+        `;
+      case 'block':
+        return `
+          width: ${props.width / 2}px;
+          height: ${props.width / 4}px;
+          background: rgba(255, 255, 255, ${props.opacity * 0.3});
+          filter: blur(${Math.random() * 2 + 1}px);
+        `;
+      case 'wave':
+        return `
+          width: ${props.width * 1.5}px;
+          height: ${Math.random() * 10 + 5}px;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, ${props.opacity * 0.5}),
+            transparent
+          );
+          filter: blur(${Math.random() * 1 + 0.5}px);
+        `;
+      case 'glitch':
+        return `
+          width: ${props.width}px;
+          height: ${Math.random() * 3 + 1}px;
+          background: rgba(${Math.random() > 0.5 ? '0,255,255' : '255,0,255'}, ${props.opacity * 0.7});
+          box-shadow: 0 0 ${Math.random() * 4 + 2}px rgba(255,255,255,${props.opacity});
+          transform: skew(${Math.random() * 30 - 15}deg);
+        `;
+    }
+  }}
+`;
 
 export default function Home() {
   const [lines, setLines] = useState<string[]>([])
@@ -274,6 +315,7 @@ export default function Home() {
     left: number;
     width: number;
     opacity: number;
+    type: 'line' | 'block' | 'wave' | 'glitch';
   }>>([])
 
   const executeWelcomeSequence = async () => {
@@ -478,25 +520,38 @@ export default function Home() {
     let artifactId = 0;
 
     const createArtifact = () => {
-      if (Math.random() < 0.3) { // 30% de probabilidad de crear un artefacto
+      if (Math.random() < 0.3) {
+        const randomValue = Math.random();
+        let artifactType: 'line' | 'block' | 'wave' | 'glitch';
+
+        if (randomValue < 0.6) {
+          artifactType = 'line';
+        } else if (randomValue < 0.75) {
+          artifactType = 'block';
+        } else if (randomValue < 0.9) {
+          artifactType = 'wave';
+        } else {
+          artifactType = 'glitch';
+        }
+
         const newArtifact = {
           id: artifactId++,
           top: Math.random() * 100,
           left: Math.random() * 100,
-          width: Math.random() * 100 + 20, // Entre 20 y 120px
-          opacity: Math.random() * 0.5 + 0.3 // Entre 0.3 y 0.8
+          width: Math.random() * 100 + 20,
+          opacity: Math.random() * 0.5 + 0.3,
+          type: artifactType
         };
 
         setNoiseArtifacts(prev => [...prev, newArtifact]);
 
-        // Eliminar el artefacto después de un tiempo aleatorio
         setTimeout(() => {
           setNoiseArtifacts(prev => prev.filter(a => a.id !== newArtifact.id));
-        }, Math.random() * 200 + 100); // Entre 100 y 300ms
+        }, Math.random() * 200 + 100);
       }
     };
 
-    const interval = setInterval(createArtifact, 100); // Intentar crear un artefacto cada 100ms
+    const interval = setInterval(createArtifact, 100);
 
     return () => clearInterval(interval);
   }, []);
@@ -586,6 +641,7 @@ export default function Home() {
                   left={artifact.left}
                   width={artifact.width}
                   opacity={artifact.opacity}
+                  type={artifact.type}
                 />
               ))}
               {floatingSnippets.map(snippet => (
