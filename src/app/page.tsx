@@ -226,6 +226,18 @@ const FloatingCode = styled.div<{ top: number, left: number, opacity: number }>`
   line-height: 1.2;
 `
 
+const NoiseArtifact = styled.div<{ top: number; left: number; width: number; opacity: number }>`
+  position: absolute;
+  top: ${props => props.top}%;
+  left: ${props => props.left}%;
+  width: ${props => props.width}px;
+  height: 1px;
+  background: rgba(255, 255, 255, ${props => props.opacity});
+  box-shadow: 0 0 2px rgba(255, 255, 255, ${props => props.opacity});
+  transform: rotate(${() => Math.random() * 360}deg);
+  pointer-events: none;
+`
+
 export default function Home() {
   const [lines, setLines] = useState<string[]>([])
   const [showWelcome, setShowWelcome] = useState(false)
@@ -255,6 +267,13 @@ export default function Home() {
     left: number,
     opacity: number,
     visibleLines: number
+  }>>([])
+  const [noiseArtifacts, setNoiseArtifacts] = useState<Array<{
+    id: number;
+    top: number;
+    left: number;
+    width: number;
+    opacity: number;
   }>>([])
 
   const executeWelcomeSequence = async () => {
@@ -455,6 +474,33 @@ export default function Home() {
     return () => clearInterval(interval)
   }, [])
 
+  useEffect(() => {
+    let artifactId = 0;
+
+    const createArtifact = () => {
+      if (Math.random() < 0.3) { // 30% de probabilidad de crear un artefacto
+        const newArtifact = {
+          id: artifactId++,
+          top: Math.random() * 100,
+          left: Math.random() * 100,
+          width: Math.random() * 100 + 20, // Entre 20 y 120px
+          opacity: Math.random() * 0.5 + 0.3 // Entre 0.3 y 0.8
+        };
+
+        setNoiseArtifacts(prev => [...prev, newArtifact]);
+
+        // Eliminar el artefacto después de un tiempo aleatorio
+        setTimeout(() => {
+          setNoiseArtifacts(prev => prev.filter(a => a.id !== newArtifact.id));
+        }, Math.random() * 200 + 100); // Entre 100 y 300ms
+      }
+    };
+
+    const interval = setInterval(createArtifact, 100); // Intentar crear un artefacto cada 100ms
+
+    return () => clearInterval(interval);
+  }, []);
+
   const handleClick = () => {
     if (!showWelcome && abortControllerRef.current) {
       abortControllerRef.current.abort()
@@ -533,6 +579,15 @@ export default function Home() {
         <ModernPageContainer>
           <TitleContainer>
             <VHSContainer>
+              {noiseArtifacts.map(artifact => (
+                <NoiseArtifact
+                  key={artifact.id}
+                  top={artifact.top}
+                  left={artifact.left}
+                  width={artifact.width}
+                  opacity={artifact.opacity}
+                />
+              ))}
               {floatingSnippets.map(snippet => (
                 <FloatingCode
                   key={snippet.id}
