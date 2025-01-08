@@ -8,7 +8,7 @@ import { HiHome, HiFolder, HiMail, HiUser } from 'react-icons/hi'
 import { FaGithub } from 'react-icons/fa'
 
 interface NavContainerProps {
-    $theme?: 'default' | 'eva'
+    $theme?: 'default' | 'dark'
 }
 
 const NavContainer = styled.div<NavContainerProps>`
@@ -17,7 +17,7 @@ const NavContainer = styled.div<NavContainerProps>`
   left: 0;
   width: 100%;
   z-index: 10;
-  background: ${props => props.$theme === 'eva' ? '#432B4F' : 'white'};
+  background: ${props => props.$theme === 'dark' ? '#1a1a1a' : 'white'};
   height: 4rem;
   display: flex;
   align-items: center;
@@ -48,9 +48,9 @@ const NavLinks = styled.div`
   }
 `
 
-const NavLink = styled(Link) <{ $theme?: 'default' | 'eva' }>`
+const NavLink = styled(Link) <{ $theme?: 'default' | 'dark' }>`
   text-decoration: none;
-  color: ${props => props.$theme === 'eva' ? '#fff' : '#000'};
+  color: ${props => props.$theme === 'dark' ? '#fff' : '#000'};
   font-size: 0.9rem;
   text-transform: uppercase;
   opacity: 0.7;
@@ -82,7 +82,7 @@ const Icon = styled.div`
 `
 
 interface PortfolioNavbarProps {
-    theme?: 'default' | 'eva'
+    theme?: 'default' | 'dark'
 }
 
 export const PortfolioNavbar = ({ theme = 'default' }: PortfolioNavbarProps) => {

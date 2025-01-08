@@ -30,7 +30,7 @@ const TitleContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #432B4F;
+  background-color: #1a1a1a;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   margin-right: calc(-50vw + 50%);
@@ -101,11 +101,19 @@ const VHSTitle = styled(Title)`
   text-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.6);
   padding-left: 2rem;
   padding-right: 2rem;
+  * {
+    transition: none !important;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+  }
 
   h1, h2, p {
     position: relative;
     animation: textWaver 3s infinite;
     color: rgba(255, 255, 255, 0.9);
+    will-change: transform;
 
     &::before {
       content: attr(data-glitch);
@@ -329,6 +337,71 @@ export default function Home() {
           }
         })
 
+        if (Math.random() < 0.2) {
+          const title = document.querySelector('.vhs-title') as HTMLElement
+          if (title) {
+            const scale = 0.7 + Math.random() * 0.6
+            const translateX = (Math.random() - 0.5) * 60
+            const translateY = (Math.random() - 0.5) * 60
+
+            title.style.transition = 'none'
+            title.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`
+
+            setTimeout(() => {
+              title.style.transition = 'none'
+              title.style.transform = 'scale(1) translate(0, 0)'
+            }, 100)
+
+            setTimeout(() => {
+              const smallerScale = 0.9 + Math.random() * 0.2
+              const smallerX = (Math.random() - 0.5) * 20
+              const smallerY = (Math.random() - 0.5) * 20
+
+              title.style.transition = 'none'
+              title.style.transform = `scale(${smallerScale}) translate(${smallerX}px, ${smallerY}px)`
+
+              setTimeout(() => {
+                title.style.transition = 'none'
+                title.style.transform = 'scale(1) translate(0, 0)'
+              }, 50)
+            }, 150)
+          }
+        }
+
+        if (Math.random() < 0.5) {
+          const elements = document.querySelectorAll('.vhs-title h1, .vhs-title h2, .vhs-title p')
+          const rgbEffect = Math.floor(Math.random() * 3)
+          let color: string;
+
+          switch (rgbEffect) {
+            case 0:
+              color = 'rgba(255, 180, 180, 0.75)';
+              break;
+            case 1:
+              color = 'rgba(180, 255, 180, 0.75)';
+              break;
+            default:
+              color = 'rgba(180, 180, 255, 0.75)';
+              break;
+          }
+
+          elements.forEach((el) => {
+            if (Math.random() < 0.7) {
+              const element = el as HTMLElement;
+              element.style.color = color;
+              element.style.textShadow = `0 0 3px ${color}`;
+            }
+          })
+
+          setTimeout(() => {
+            elements.forEach((el) => {
+              const element = el as HTMLElement;
+              element.style.color = 'rgba(255, 255, 255, 0.9)';
+              element.style.textShadow = '0.1em 0.1em 0.2em rgba(0, 0, 0, 0.6)';
+            })
+          }, 100)
+        }
+
         setTimeout(() => {
           setGlitchText({
             h1: "Hola,",
@@ -456,7 +529,7 @@ export default function Home() {
     return (
       <>
         <GlobalStyle />
-        <PortfolioNavbar theme="eva" />
+        <PortfolioNavbar theme="dark" />
         <ModernPageContainer>
           <TitleContainer>
             <VHSContainer>
@@ -471,7 +544,7 @@ export default function Home() {
                 </FloatingCode>
               ))}
               <ModernContentContainer>
-                <VHSTitle>
+                <VHSTitle className="vhs-title">
                   <h1 data-text="Hola," data-glitch={glitchText.h1}>{glitchText.h1}</h1>
                   <h2 data-text="Soy Felipe Báguena," data-glitch={glitchText.h2}>{glitchText.h2}</h2>
                   <p data-text="desarrollador web." data-glitch={glitchText.p1}>{glitchText.p1}</p>
