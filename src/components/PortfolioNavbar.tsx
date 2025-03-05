@@ -1,14 +1,13 @@
 'use client'
 import styled from 'styled-components'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { useContactForm } from '@/hooks/useContactForm'
 import { ModernContactForm } from './ModernContactForm'
 import { HiHome, HiFolder, HiMail, HiUser } from 'react-icons/hi'
 import { FaGithub } from 'react-icons/fa'
 
 interface NavContainerProps {
-    $theme?: 'default' | 'dark'
+  $theme?: 'default' | 'dark'
 }
 
 const NavContainer = styled.div<NavContainerProps>`
@@ -82,59 +81,58 @@ const Icon = styled.div`
 `
 
 interface PortfolioNavbarProps {
-    theme?: 'default' | 'dark'
+  theme?: 'default' | 'dark'
 }
 
 export const PortfolioNavbar = ({ theme = 'default' }: PortfolioNavbarProps) => {
-    const router = useRouter()
-    const { showContactForm, contactFormExiting, handleContactClick, handleCloseContact } = useContactForm()
+  const { showContactForm, contactFormExiting, handleContactClick, handleCloseContact } = useContactForm()
 
-    return (
-        <>
-            <NavContainer $theme={theme}>
-                <ContentContainer>
-                    <Nav>
-                        <NavLinks>
-                            <NavLink href="/" $theme={theme}>
-                                <span>Inicio</span>
-                                <Icon>
-                                    <HiHome />
-                                </Icon>
-                            </NavLink>
-                            <NavLink href="/sobre-mi" $theme={theme}>
-                                <span>Sobre mí</span>
-                                <Icon>
-                                    <HiUser />
-                                </Icon>
-                            </NavLink>
-                            <NavLink href="#" onClick={handleContactClick} $theme={theme}>
-                                <span>Contacto</span>
-                                <Icon>
-                                    <HiMail />
-                                </Icon>
-                            </NavLink>
-                            <NavLink href="https://github.com/felipebaguena" target="_blank" $theme={theme}>
-                                <span>Github</span>
-                                <Icon>
-                                    <FaGithub />
-                                </Icon>
-                            </NavLink>
-                            <NavLink href="/portfolio" $theme={theme}>
-                                <span>Portfolio</span>
-                                <Icon>
-                                    <HiFolder />
-                                </Icon>
-                            </NavLink>
-                        </NavLinks>
-                    </Nav>
-                </ContentContainer>
-            </NavContainer>
-            {showContactForm && (
-                <ModernContactForm
-                    onClose={handleCloseContact}
-                    isExiting={contactFormExiting}
-                />
-            )}
-        </>
-    )
+  return (
+    <>
+      <NavContainer $theme={theme}>
+        <ContentContainer>
+          <Nav>
+            <NavLinks>
+              <NavLink href="/" $theme={theme}>
+                <span>Inicio</span>
+                <Icon>
+                  <HiHome />
+                </Icon>
+              </NavLink>
+              <NavLink href="/sobre-mi" $theme={theme}>
+                <span>Sobre mí</span>
+                <Icon>
+                  <HiUser />
+                </Icon>
+              </NavLink>
+              <NavLink href="#" onClick={handleContactClick} $theme={theme}>
+                <span>Contacto</span>
+                <Icon>
+                  <HiMail />
+                </Icon>
+              </NavLink>
+              <NavLink href="https://github.com/felipebaguena" target="_blank" $theme={theme}>
+                <span>Github</span>
+                <Icon>
+                  <FaGithub />
+                </Icon>
+              </NavLink>
+              <NavLink href="/portfolio" $theme={theme}>
+                <span>Portfolio</span>
+                <Icon>
+                  <HiFolder />
+                </Icon>
+              </NavLink>
+            </NavLinks>
+          </Nav>
+        </ContentContainer>
+      </NavContainer>
+      {showContactForm && (
+        <ModernContactForm
+          onClose={handleCloseContact}
+          isExiting={contactFormExiting}
+        />
+      )}
+    </>
+  )
 } 

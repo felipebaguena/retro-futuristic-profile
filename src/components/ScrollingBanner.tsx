@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 
 const scrollText = keyframes`
@@ -37,15 +37,15 @@ const ScrollingText = styled.div`
 `
 
 export const ScrollingBanner = () => {
-    const [text] = useState("Bienvenido a mi portfolio personal • Desarrollador Full Stack • React • Node.js • TypeScript • Next.js • ")
+  const [text] = useState("Bienvenido a mi portfolio personal • Desarrollador Full Stack • React • Node.js • TypeScript • Next.js • ")
 
-    return (
-        <BannerContainer>
-            <ScrollingText>
-                {text}
-                {text}
-                {text}
-            </ScrollingText>
-        </BannerContainer>
-    )
+  return (
+    <BannerContainer>
+      <ScrollingText>
+        {text}
+        {text}
+        {text}
+      </ScrollingText>
+    </BannerContainer>
+  )
 } 

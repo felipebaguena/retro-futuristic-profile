@@ -289,7 +289,7 @@ export default function Home() {
   const [githubLines, setGithubLines] = useState<string[]>([])
   const [isLoadingGithub, setIsLoadingGithub] = useState(false)
   const abortControllerRef = useRef<AbortController | null>(null)
-  const { hasSeenBootSequence, setHasSeenBootSequence, hasAppliedNewDesign, setHasAppliedNewDesign } = useBootSequence()
+  const { hasSeenBootSequence, setHasSeenBootSequence, hasAppliedNewDesign } = useBootSequence()
   const [showNavbar, setShowNavbar] = useState(true)
   const [showMenu, setShowMenu] = useState(false)
   const [isLoadingPortfolio, setIsLoadingPortfolio] = useState(false)
@@ -379,7 +379,7 @@ export default function Home() {
   useEffect(() => {
     const glitchInterval = setInterval(() => {
       if (Math.random() < 0.35) {
-        setGlitchText(prev => {
+        setGlitchText(() => {
           const glitchString = (str: string) => {
             const chars = str.split('')
             const numReplacements = Math.floor(str.length * 0.1)

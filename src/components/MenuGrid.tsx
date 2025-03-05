@@ -4,7 +4,6 @@ import { FaUser, FaEnvelope, FaGithub, FaFolder } from 'react-icons/fa'
 import { CRTText } from '@/components/styles/CRTText'
 import { rgbShift } from '@/components/styles/CRTText'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 
 interface MenuGridProps {
     onContactClick: () => void;

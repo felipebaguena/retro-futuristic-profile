@@ -1,5 +1,4 @@
 type MessageUpdater = (message: string) => void;
-type DelayFunction = (ms: number) => Promise<void>;
 
 export const executeGithubSequence = async (
   addMessage: MessageUpdater,

@@ -5,13 +5,10 @@ import { Terminal, Line } from '@/components/styles/TerminalStyles'
 import { Navbar } from '@/components/Navbar'
 import { PortfolioNavbar } from '@/components/PortfolioNavbar'
 import { useBootSequence } from '@/context/BootSequenceContext'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import {
-    ModernPageContainer,
-    ModernContentContainer,
-    ModernTitle,
-    ModernText,
-    CRTContentContainer
+  ModernPageContainer,
+  CRTContentContainer
 } from '@/components/styles/CommonElements'
 import Image from 'next/image'
 import { CRTImageContainer } from '@/components/styles/CRTImage'
@@ -53,21 +50,6 @@ const CRTTextContent = styled.div`
     @media (max-width: 768px) {
       width: 100%;
     }
-  }
-`
-
-const ImageContainer = styled.div`
-  flex-shrink: 0;
-  width: 300px;
-  height: 300px;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: relative;
-
-  @media (max-width: 768px) {
-    width: 250px;
-    height: 250px;
   }
 `
 
@@ -195,16 +177,6 @@ const ContentSection = styled.div`
   flex: 1;
 `
 
-const ModernHeading = styled.h1`
-  font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-  color: #2d3436;
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-`
-
 const ModernSubheading = styled.h2`
   font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
   color: #2d3436;
@@ -224,99 +196,99 @@ const ModernParagraph = styled.p`
 `
 
 export default function SobreMi() {
-    const { setHasSeenBootSequence, hasAppliedNewDesign } = useBootSequence()
+  const { setHasSeenBootSequence, hasAppliedNewDesign } = useBootSequence()
 
-    useEffect(() => {
-        setHasSeenBootSequence(true)
-    }, [])
+  useEffect(() => {
+    setHasSeenBootSequence(true)
+  }, [])
 
-    if (hasAppliedNewDesign) {
-        return (
-            <>
-                <PortfolioNavbar />
-                <ModernPageContainer>
-                    <ModernLayout>
-                        <HeroSection>
-                            <ModernImageContainer>
-                                <Image
-                                    src="/images/fotocv1.jpg"
-                                    alt="Felipe Báguena"
-                                    fill
-                                    style={{ objectFit: 'cover' }}
-                                    sizes="(max-width: 968px) 300px, 400px"
-                                    priority
-                                />
-                            </ModernImageContainer>
-                            <ContentSection>
-                                <ModernParagraph>{sobreMiTexts.intro}</ModernParagraph>
-                            </ContentSection>
-                        </HeroSection>
-
-                        <ModernSubheading>Formación</ModernSubheading>
-                        <ModernParagraph>{sobreMiTexts.formacionContent}</ModernParagraph>
-
-                        <ModernSubheading>Habilidades</ModernSubheading>
-                        <ModernParagraph>{sobreMiTexts.habilidadesContent}</ModernParagraph>
-
-                        <ModernSubheading>Intereses</ModernSubheading>
-                        <ModernParagraph>{sobreMiTexts.interesesContent}</ModernParagraph>
-                    </ModernLayout>
-                </ModernPageContainer>
-            </>
-        )
-    }
-
+  if (hasAppliedNewDesign) {
     return (
-        <>
-            <Navbar />
-            <CRTOuter>
-                <CRTContainer>
-                    <Scanline />
-                    <Screen>
-                        <CRTContentContainer>
-                            <Terminal>
-                                <CRTProfileSection>
-                                    <CRTTextContent>
-                                        <SectionBlock delay={0}>
-                                            <IntroSection>
-                                                <StyledTextLineWrapper>
-                                                    <TextLine text={sobreMiTexts.intro} />
-                                                </StyledTextLineWrapper>
-                                                <StyledCRTImageContainer>
-                                                    <Image
-                                                        src="/images/fotocv1.jpg"
-                                                        alt="Felipe Báguena"
-                                                        fill
-                                                        style={{ objectFit: 'cover' }}
-                                                        sizes="300px"
-                                                        priority
-                                                    />
-                                                </StyledCRTImageContainer>
-                                            </IntroSection>
-                                        </SectionBlock>
+      <>
+        <PortfolioNavbar />
+        <ModernPageContainer>
+          <ModernLayout>
+            <HeroSection>
+              <ModernImageContainer>
+                <Image
+                  src="/images/fotocv1.jpg"
+                  alt="Felipe Báguena"
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  sizes="(max-width: 968px) 300px, 400px"
+                  priority
+                />
+              </ModernImageContainer>
+              <ContentSection>
+                <ModernParagraph>{sobreMiTexts.intro}</ModernParagraph>
+              </ContentSection>
+            </HeroSection>
 
-                                        <SectionBlock delay={500}>
-                                            <TextLine text={sobreMiTexts.formacionTitle} />
-                                            <TextLine text={sobreMiTexts.formacionContent} />
-                                        </SectionBlock>
+            <ModernSubheading>Formación</ModernSubheading>
+            <ModernParagraph>{sobreMiTexts.formacionContent}</ModernParagraph>
 
-                                        <SectionBlock delay={1000}>
-                                            <TextLine text={sobreMiTexts.habilidadesTitle} />
-                                            <TextLine text={sobreMiTexts.habilidadesContent} />
-                                        </SectionBlock>
+            <ModernSubheading>Habilidades</ModernSubheading>
+            <ModernParagraph>{sobreMiTexts.habilidadesContent}</ModernParagraph>
 
-                                        <SectionBlock delay={1500}>
-                                            <TextLine text={sobreMiTexts.interesesTitle} />
-                                            <TextLine text={sobreMiTexts.interesesContent} />
-                                        </SectionBlock>
-                                    </CRTTextContent>
-
-                                </CRTProfileSection>
-                            </Terminal>
-                        </CRTContentContainer>
-                    </Screen>
-                </CRTContainer>
-            </CRTOuter>
-        </>
+            <ModernSubheading>Intereses</ModernSubheading>
+            <ModernParagraph>{sobreMiTexts.interesesContent}</ModernParagraph>
+          </ModernLayout>
+        </ModernPageContainer>
+      </>
     )
+  }
+
+  return (
+    <>
+      <Navbar />
+      <CRTOuter>
+        <CRTContainer>
+          <Scanline />
+          <Screen>
+            <CRTContentContainer>
+              <Terminal>
+                <CRTProfileSection>
+                  <CRTTextContent>
+                    <SectionBlock delay={0}>
+                      <IntroSection>
+                        <StyledTextLineWrapper>
+                          <TextLine text={sobreMiTexts.intro} />
+                        </StyledTextLineWrapper>
+                        <StyledCRTImageContainer>
+                          <Image
+                            src="/images/fotocv1.jpg"
+                            alt="Felipe Báguena"
+                            fill
+                            style={{ objectFit: 'cover' }}
+                            sizes="300px"
+                            priority
+                          />
+                        </StyledCRTImageContainer>
+                      </IntroSection>
+                    </SectionBlock>
+
+                    <SectionBlock delay={500}>
+                      <TextLine text={sobreMiTexts.formacionTitle} />
+                      <TextLine text={sobreMiTexts.formacionContent} />
+                    </SectionBlock>
+
+                    <SectionBlock delay={1000}>
+                      <TextLine text={sobreMiTexts.habilidadesTitle} />
+                      <TextLine text={sobreMiTexts.habilidadesContent} />
+                    </SectionBlock>
+
+                    <SectionBlock delay={1500}>
+                      <TextLine text={sobreMiTexts.interesesTitle} />
+                      <TextLine text={sobreMiTexts.interesesContent} />
+                    </SectionBlock>
+                  </CRTTextContent>
+
+                </CRTProfileSection>
+              </Terminal>
+            </CRTContentContainer>
+          </Screen>
+        </CRTContainer>
+      </CRTOuter>
+    </>
+  )
 } 
