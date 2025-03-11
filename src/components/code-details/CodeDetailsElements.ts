@@ -68,6 +68,49 @@ export const CodeContent = styled.pre`
   }
 `;
 
+interface TooltipProps {
+  $x: number;
+  $y: number;
+  $position: 'top' | 'bottom' | 'left' | 'right';
+}
+
+export const TooltipModal = styled.div<TooltipProps>`
+  position: fixed;
+  left: ${props => props.$x}px;
+  top: ${props => props.$y}px;
+  background: #2d2d2d;
+  color: #e0e0e0;
+  padding: 1rem;
+  border-radius: 6px;
+  max-width: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  z-index: 9999;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  pointer-events: none;
+  transform: translate(-50%, 
+    ${props => props.$position === 'top' ? 'calc(-100% - 10px)' : '10px'}
+  );
+  
+  &::after {
+    content: '';
+    position: absolute;
+    ${props => props.$position === 'top' ? 'bottom: -5px' : 'top: -5px'};
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-${props => props.$position === 'top' ? 'top' : 'bottom'}: 6px solid #2d2d2d;
+  }
+
+  @media (max-width: 768px) {
+    max-width: calc(100vw - 40px);
+    font-size: 0.8rem;
+    padding: 0.75rem;
+  }
+`;
+
 export const CodeAnnotation = styled.div`
   background: #2d2d2d;
   padding: 1rem;

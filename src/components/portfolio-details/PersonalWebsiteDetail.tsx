@@ -16,6 +16,7 @@ import {
     ImageContainer
 } from '@/components/styles/PortfolioDetailsElements'
 import { CodeDetails } from '@/components/code-details/CodeDetails'
+import { personalWebsiteExamples } from '@/components/code-details/codeExamples'
 
 interface ProjectDetailProps {
     project: Project;
@@ -160,37 +161,14 @@ export const PersonalWebsiteDetail = ({ project }: ProjectDetailProps) => {
                     Por ejemplo, el efecto de glitch en los textos se logra mediante la siguiente implementación:
                 </Description>
                 
-                <CodeDetails
-                    title="src/components/effects/GlitchEffect.tsx"
-                    code={`const glitchText = (text: string) => {
-  const chars = text.split('');
-  const glitchChars = '!@#$%^&*()';
-  
-  return chars.map(char => 
-    Math.random() > 0.9 
-      ? glitchChars[Math.floor(Math.random() * glitchChars.length)]
-      : char
-  ).join('');
-};`}
-                    annotations={[
-                        {
-                            start: 41,
-                            end: 70,
-                            text: "Convertimos el texto en un array de caracteres para poder manipularlos individualmente"
-                        },
-                        {
-                            start: 79,
-                            end: 90,
-                            text: "Caracteres especiales que usaremos para crear el efecto glitch"
-                        },
-                        {
-                            start: 142,
-                            end: 161,
-                            text: "10% de probabilidad de que un carácter sea reemplazado"
-                        }
-                    ]}
-                    description="Este componente crea el efecto de glitch reemplazando aleatoriamente algunos caracteres del texto."
-                />
+                <CodeDetails {...personalWebsiteExamples.glitchEffect} />
+
+                <Description>
+                    La secuencia de arranque del sitio es una parte crucial de su experiencia de usuario.
+                    Esta secuencia imita el arranque de sistemas antiguos y incluye referencias a la cultura pop.
+                </Description>
+                
+                <CodeDetails {...personalWebsiteExamples.bootSequence} />
             </ProjectSection>
 
             <GithubLink
