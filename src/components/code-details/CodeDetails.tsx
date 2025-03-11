@@ -85,7 +85,7 @@ export const CodeDetails = ({ title, code, annotations = [], description }: Code
     const renderCodeWithAnnotations = () => {
         if (!annotations.length) return code;
 
-        let result = [];
+        const result = [];
         let lastIndex = 0;
 
         const sortedAnnotations = [...annotations].sort((a, b) => a.start - b.start);
