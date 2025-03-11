@@ -49,7 +49,11 @@ export const Description = styled.p`
   font-size: 1.1rem;
   line-height: 1.8;
   color: #636e72;
-  margin-bottom: 2rem;
+  margin: 0 1rem 2rem 1rem;
+
+  @media (max-width: 768px) {
+    margin: 0 0.75rem 1.5rem 0.75rem;
+  }
 `;
 
 export const FeatureList = styled.div`
